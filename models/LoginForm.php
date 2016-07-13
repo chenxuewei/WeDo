@@ -26,7 +26,7 @@ class LoginForm extends Model
             // username and password are both required
             [['username', 'password'], 'required'],
             // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
+            // ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
         ];
@@ -41,6 +41,7 @@ class LoginForm extends Model
      */
     public function validatePassword($attribute, $params)
     {
+        echo $this->username;die;
         if (!$this->hasErrors()) {
             $user = $this->getUser();
 

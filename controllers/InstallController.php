@@ -1,7 +1,6 @@
 <?php
 
 namespace app\controllers;
-error_reporting(E_ALL ^ E_DEPRECATED);
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -20,19 +19,19 @@ class InstallController extends Controller
     /*
      * 验证是否安装
      */
-    function actionInstall(){
+    function actionIndex(){
         // 安装界面如果安装好之后生成一个php文件 文件如果存在则跳到登录界面
        if (is_file("assets/existence.php")) {
-           $this->redirect('extra/login');
+           return $this->success(['extra/login'],'您已经安装过了，即将跳入登陆页面！');
        } else {
-           return $this->render("install-agreement");
+           return $this->redirect(['install/install']);
        }
     }
 
     /*
      * 协议一
      */
-    public function actionIndex()
+    public function actionInstall()
     {
         $view = Yii::$app->view;
         $view->params['progress']='25';
@@ -83,10 +82,10 @@ class InstallController extends Controller
 
         $ret['php']['version']['value'] = PHP_VERSION;
         $ret['php']['version']['class'] = 'success';
-        if(version_compare(PHP_VERSION, '5.3.0') == -1) {
+        if(version_compare(PHP_VERSION, '5.4.0') == -1) {
             $ret['php']['version']['class'] = 'danger';
             $ret['php']['version']['failed'] = true;
-            $ret['php']['version']['remark'] = 'PHP版本必须为 5.3.0 以上. <a href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58062">详情</a>';
+            $ret['php']['version']['remark'] = 'PHP版本必须为 5.4.0 以上. <a href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58062">详情</a>';
         }else{
             $ret['php']['version']['class'] = '';
         }
@@ -264,6 +263,7 @@ class InstallController extends Controller
         $post=\Yii::$app->request->post();
 //        print_r($post);die;
         $host=$post['db']['server'];//数据库地址
+        $duan=$post['db']['duan'];//数据库端口
         $name=$post['db']['username'];//数据库用户名
         $pwd=$post['db']['password'];//数据库密码
         $db=$post['db']['name'];//数据库名字
@@ -292,45 +292,39 @@ class InstallController extends Controller
                     }
                 }
             }
-            //修改表前缀
-            $rs = mysql_list_tables("$db");
-            print_r($rs);die;
-            $arr = mysql_fetch_array($rs);
-            // var_dump($arr);die;
-            // $rs =  mysql_list_tables("$db");
             
-            $tables = array();
-            while ($row = mysql_fetch_row($rs)) {
-                $tables[] = $row[0];
-            }  
-            // print_r($tables);die;
-            while($name1 = mysql_fetch_array($tables)) {
-                $table = $dbtem.$name1['0'];
-                mysql_query("rename table $name1[0] to $table");
-            }
             $str="<?php
                     return [
                         'class' => 'yii\db\Connection',
-                        'dsn' => 'mysql:host=".$host.";port=3306;dbname=".$db."',
+                        'dsn' => 'mysql:host=".$host.";port=".$duan.";dbname=".$db."',
                         'username' => '".$name."',
                         'password' => '".$pwd."',
                         'charset' => 'utf8',
-                        'tablePrefix' => ".$dbtem.",   //加入前缀名称we_
+                        'tablePrefix' => '".$dbtem."',   //加入前缀名称
                     ];";
             file_put_contents('../config/db.php',$str);
+            //修改表前缀
+            $a = "SHOW TABLES FROM ".$db;
+            $aa = mysqli_query($link,$a);
+            while($arr = $aa->fetch_row()){
+                $table = $dbtem.$arr[0];
+                mysqli_query($link,"rename table `$arr[0]` to $table");     
+            }
             $str1="<?php
-                        \$pdo=new PDO('mysql:host= $host;port=3306;dbname=$db','$name','$pwd',array(PDO::MYSQL_ATTR_INIT_COMMAND=>'set names utf8'));
+                        \$pdo=new PDO('mysql:host= $host;port=".$duan.";dbname=$db','$name','$pwd',array(PDO::MYSQL_ATTR_INIT_COMMAND=>'set names utf8'));
                          ?>";
             file_put_contents('./assets/abc.php',$str1);
-            $sql="insert into we_user (uname,upwd) VALUES ('$uname','$upwd')";
+            $tt = $dbtem."user";
+            $sql="insert into `$tt` (uname,upwd) VALUES ('$uname','$upwd')";
             mysqli_query($link , $sql);
-            mysqli_close($link);
+            //mysqli_close($link);
             $counter_file       =   'assets/existence.php';//文件名及路径,在当前目录下新建aa.txt文件
             $fopen                     =   fopen($counter_file,'wb');//新建文件命令
             fputs($fopen,   'aaaaaa ');//向文件中写入内容;
             fclose($fopen);
-            $strs=str_replace("//'db' => require(__DIR__ . '/db.php'),","'db' => require(__DIR__ . '/db.php'),",file_get_contents("../config/web.php"));
+            $strs=str_replace("// 'db' => require(__DIR__ . '/db.php'),","'db' => require(__DIR__ . '/db.php'),",file_get_contents("../config/web.php"));
             file_put_contents("../config/web.php",$strs);
+            
             return  $this->success(['extra/login'],'安装完成，即将跳入登陆页面！');
         }else{
             echo "<script>

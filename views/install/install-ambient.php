@@ -51,7 +51,7 @@
         </tr>
         <tr class="<?php if(isset($ret['php']['version']['class'])){echo $ret['php']['version']['class'];}?>">
             <td>PHP版本</td>
-            <td>5.3或者5.3以上</td>
+            <td>5.4或者5.4以上</td>
             <td><?php if(isset($ret['php']['version']['value'])){echo $ret['php']['version']['value'];}?></td>
             <td><?php if(isset($ret['php']['version']['remark'])){echo $ret['php']['version']['remark']; }?></td>
         </tr>

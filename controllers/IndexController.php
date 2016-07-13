@@ -7,18 +7,22 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 
-class IndexController extends Controller
+class IndexController extends HomeController
 {
    /*
     * 加载后台模板
     */
     public $layout='project';
-
     /*
      * 后台主页
      */
     function actionIndex(){
-        return $this->render('index');
+        if (is_file("assets/existence.php")) {
+           return $this->render('index');
+       } else {
+           return  $this->success(['install/install'],'您还没有安装，即将跳入安装页面！');
+       }
+        
     }
 
     /*

@@ -1,10 +1,11 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
-
+Yii::$classMap['Vcode']='@app/libs/Vcode.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
+    'defaultRoute'=>'install/index',
     'bootstrap' => ['log'],
     'components' => [
         'request' => [

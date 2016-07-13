@@ -344,7 +344,7 @@ AppAsset::register($this);
                         </ul>
                     </li>
                     <li class="dropdown topbar-user">
-                        <a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg" alt="" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs">John Doe</span>&nbsp;<span class="caret"></span>
+                        <a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg" alt="" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs"><?php echo Yii::$app->session->get('uname');?></span>&nbsp;<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-user pull-right">
                             <li><a href="extra-profile.html"><i class="fa fa-user"></i>My Profile</a>
@@ -358,7 +358,7 @@ AppAsset::register($this);
                             <li class="divider"></li>
                             <li><a href="extra-lock-screen.html"><i class="fa fa-lock"></i>Lock Screen</a>
                             </li>
-                            <li><a href="extra-signin.html"><i class="fa fa-key"></i>Log Out</a>
+                            <li><a href="?r=extra/logout"><i class="fa fa-key"></i>退 出</a>
                             </li>
                         </ul>
                     </li>

@@ -12,6 +12,12 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-2 control-label">数据库端口</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="db[duan]" value="3306">
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-2 control-label">数据库用户</label>
                 <div class="col-sm-4">
                     <input class="form-control" type="text" name="db[username]" value="root">
@@ -26,13 +32,13 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">表前缀</label>
                 <div class="col-sm-4">
-                    <input class="form-control" type="text" name="db[prefix]" value="WD_">
+                    <input class="form-control" type="text" name="db[prefix]" value="wd_">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">数据库名称</label>
                 <div class="col-sm-4">
-                    <input class="form-control" type="text" name="db[name]" value="WeDo">
+                    <input class="form-control" type="text" name="db[name]" value="wedo">
                 </div>
             </div>
         </div>
