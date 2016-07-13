@@ -9,8 +9,8 @@
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="Thu, 19 Nov 1900 08:52:00 GMT">
     <!--Loading bootstrap css-->
-    <link type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,800italic,400,700,800">
-    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
+    <!-- <link type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,800italic,400,700,800"> -->
+    <!-- <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300"> -->
     <link type="text/css" rel="stylesheet" href="vendors/jquery-ui-1.10.3.custom/css/ui-lightness/jquery-ui-1.10.3.custom.css">
     <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
@@ -42,8 +42,10 @@
                        <input type="password" placeholder="Password" name="password" class="form-control">
                     </div>
                 </div>
-                <input type="text" name="yan" />
-                <img src="index.php?r=extra/login" alt="点我换一张" title="点我换一张" width="80" height="40" onclick=this.src="index.php?r=extra/login&rand="+Math.random(1000,9999)>
+                <div class="form-group">
+                    <input type="text" name="yan" style="width:130px;margin:0 20px 0 80px;"/>
+                    <img src="index.php?r=extra/vode" alt="点我换一张" title="点我换一张" width="80" height="40" onclick=this.src="index.php?r=extra/vode&rand="+Math.random(1000,9999)>
+                </div>
                 <div class="form-group pull-left">
                     <div class="checkbox-list">
                         <label>

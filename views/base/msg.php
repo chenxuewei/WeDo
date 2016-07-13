@@ -5,7 +5,7 @@ use yii\helpers\Html;
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>可做跳转提示或404的蓝天白云主题动画模板</title>
+        <title>操作跳转页面</title>
         <?= Html::jsFile('@web/msg/js/jquery-1.7.2.min.js')?>
         <?= Html::cssFile('@web/msg/css/404.css')?>
         <script type="text/javascript">

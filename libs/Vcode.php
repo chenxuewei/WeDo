@@ -7,7 +7,7 @@ class Vcode {
     private $img;  //图像的资源
 
     //构造方法， 三个参数
-    function __construct($width=80, $height=20, $num=4) {
+    function __construct($width, $height, $num) {
         $this->width = $width;
         $this->height = $height;
         $this->num = $num;
@@ -94,7 +94,7 @@ class Vcode {
             die("No image support in this PHP server");
         }
 
-    }
+    }  
 
     //生成验证码字符串
     private function createcode() {

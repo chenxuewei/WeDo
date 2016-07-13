@@ -16,7 +16,7 @@ AppAsset::register($this);
 <html>
 <head>
     <meta charset="utf-8">
-    <title>code5</title>
+    <title>微度后台登陆面板</title>
     <style>
         body {
             background: #060e1b;
