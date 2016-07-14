@@ -22,7 +22,7 @@ class InstallController extends Controller
     function actionIndex(){
         // 安装界面如果安装好之后生成一个php文件 文件如果存在则跳到登录界面
        if (is_file("assets/existence.php")) {
-           return $this->success(['extra/login'],'您已经安装过了，即将跳入登陆页面！');
+           return $this->redirect(['extra/login']);
        } else {
            return $this->redirect(['install/install']);
        }
@@ -272,7 +272,7 @@ class InstallController extends Controller
         $dbtem=$post['db']['prefix'];//表前缀
         //echo $db;die;
 //        $urepwd=$post['urepwd'];//确认用户密码
-        if ($link= mysqli_connect("$host","$name","$pwd")){
+        if ($link= mysqli_connect("$host","$name","$pwd","","$duan")){
             $db_selected = mysqli_select_db($link , "$db");
             if($db_selected){
                 $sql="drop database ".$db;
