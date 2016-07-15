@@ -22,7 +22,7 @@ class InstallController extends Controller
     function actionIndex(){
         // 安装界面如果安装好之后生成一个php文件 文件如果存在则跳到登录界面
        if (is_file("assets/existence.php")) {
-           return $this->success(['extra/login'],'您已经安装过了，即将跳入登陆页面！');
+           return $this->redirect(['extra/login']);
        } else {
            return $this->redirect(['install/install']);
        }

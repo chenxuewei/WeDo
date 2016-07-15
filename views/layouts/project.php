@@ -70,7 +70,9 @@ AppAsset::register($this);
 
 <body style="background: #060e1b;" >
 
-<div class="codrops-demos" style="opacity: 0.5" >
+
+
+<div class="codrops-demos" style="opacity: 0.54" >
     <a id="totop" href="#"><i class="fa fa-angle-up"></i></a>
     <div id="header-topbar-option-demo" class="page-header-topbar" >
         <nav id="topbar" role="navigation" style="margin-bottom: 0; z-index: 2;" class="navbar navbar-default navbar-static-top">
@@ -493,9 +495,9 @@ AppAsset::register($this);
                     </li>
                     <li><a href="#"><i class="fa fa-sitemap fa-fw"><div class="icon-bg bg-dark"></div></i><span class="menu-title">公众号管理</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="#"><i class="fa fa-angle-right"></i><span class="submenu-title">添加公众号</span></a>
+                            <li><a href="?r=administration/index"><i class="fa fa-angle-right"></i><span class="submenu-title">添加公众号</span></a>
                             </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i><span class="submenu-title">查看公众号</span></a>
+                            <li><a href="?r=administration/sel"><i class="fa fa-angle-right"></i><span class="submenu-title">查看公众号</span></a>
                             </li>
                         </ul>
                     </li>   
