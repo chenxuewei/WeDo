@@ -272,7 +272,7 @@ class InstallController extends Controller
         $dbtem=$post['db']['prefix'];//表前缀
         //echo $db;die;
 //        $urepwd=$post['urepwd'];//确认用户密码
-        if ($link= mysqli_connect("$host","$name","$pwd")){
+        if ($link= mysqli_connect("$host","$name","$pwd","","$duan")){
             $db_selected = mysqli_select_db($link , "$db");
             if($db_selected){
                 $sql="drop database ".$db;
