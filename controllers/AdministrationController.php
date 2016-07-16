@@ -73,7 +73,11 @@ class AdministrationController extends HomeController
 		$query=new \yii\db\Query();
 		$connection=\Yii::$app->db;
 		$tem = $connection->tablePrefix;
-		$ress=$query->select('*')->from("'$tem'account")->where("aid='$aid'")->one();
+
+
+
+		$ress=$query->select('*')->from($tem."account")->where("aid='$aid'")->one();
+
 		return $this->render('slist',['arr2'=>$ress]);
 	}
 
@@ -85,7 +89,10 @@ class AdministrationController extends HomeController
 		//print_r($aid);die;
 		$connection=\Yii::$app->db;
 		$tem = $connection->tablePrefix;
-		$re=$connection->createCommand()->delete("'$tem'account","aid='$aid'")->execute();
+
+
+		$re=$connection->createCommand()->delete($tem."account","aid='$aid'")->execute();
+
 		if($re){
 			return $this->success('administration/sel');
 			
@@ -102,7 +109,8 @@ class AdministrationController extends HomeController
 		$query=new \yii\db\Query();
 		$connection=\Yii::$app->db;
 		$tem = $connection->tablePrefix;
-		$date=$query->select('*')->from("'$tem'account")->where("aid='$aid'")->one();
+
+		$date=$query->select('*')->from($tem."account")->where("aid='$aid'")->one();
 		return $this->render('saveform',['arr1'=>$date]);
 	}
 
@@ -114,7 +122,10 @@ class AdministrationController extends HomeController
 		$ass=$request->post();
 		$connection=\Yii::$app->db;
 		$tem = $connection->tablePrefix;
-		$msg=$connection->createCommand()->update("'$tem'account",['aname'=>$ass['aname'],'appid'=>$ass['appid'],'appsecret'=>$ass['appsecret'],'account'=>$ass['account']],"aid='$aid'")->execute();
+
+
+		$msg=$connection->createCommand()->update($tem."account",['aname'=>$ass['aname'],'appid'=>$ass['appid'],'appsecret'=>$ass['appsecret'],'account'=>$ass['account']],"aid='$aid'")->execute();
+
 		if($msg){
 			return $this->success('administration/sel');
 		}else{
