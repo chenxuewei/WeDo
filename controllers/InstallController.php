@@ -5,7 +5,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-
+define('IA_ROOT', str_replace("\\",'/', dirname(__FILE__)));
 class InstallController extends Controller
 {
 
@@ -56,38 +56,31 @@ class InstallController extends Controller
         //环境监测
         $ret = array();
         $ret['server']['os']['value'] = php_uname();//电脑的系统配置
-        $ret['server']['os']['value'] = iconv("GBK","UTF-8",$ret['server']['os']['value']);
-        // print_r($ret);die;
+
         if(PHP_SHLIB_SUFFIX == 'dll') {
             $ret['server']['os']['remark'] = '建议使用 Linux 系统以提升程序性能';
             $ret['server']['os']['class'] = 'warning';
-        }else{
-            $ret['server']['os']['class'] = '';
         }
         $ret['server']['sapi']['value'] = $_SERVER['SERVER_SOFTWARE'];//服务器软件
         if(PHP_SAPI == 'isapi') {
             $ret['server']['sapi']['remark'] = '建议使用 Apache 或 Nginx 以提升程序性能';
             $ret['server']['sapi']['class'] = 'warning';
-        }else{
-            $ret['server']['sapi']['class'] = '';
         }
         $ret['server']['php']['value'] = PHP_VERSION;
-        @$ret['server']['dir']['value'] = IA_ROOT;
+        $ret['server']['dir']['value'] = IA_ROOT;
         if(function_exists('disk_free_space')) {
-           @ $ret['server']['disk']['value'] = floor(disk_free_space(IA_ROOT) / (1024*1024)).'M';
+            $ret['server']['disk']['value'] = floor(disk_free_space(IA_ROOT) / (1024*1024)).'M';
         } else {
             $ret['server']['disk']['value'] = 'unknow';
         }
-        $ret['server']['upload']['value'] = ini_get('file_uploads') ? ini_get('upload_max_filesize') : 'unknow';
+        $ret['server']['upload']['value'] = @ini_get('file_uploads') ? ini_get('upload_max_filesize') : 'unknow';
 
         $ret['php']['version']['value'] = PHP_VERSION;
         $ret['php']['version']['class'] = 'success';
-        if(version_compare(PHP_VERSION, '5.4.0') == -1) {
+        if(version_compare(PHP_VERSION, '5.3.0') == -1) {
             $ret['php']['version']['class'] = 'danger';
             $ret['php']['version']['failed'] = true;
-            $ret['php']['version']['remark'] = 'PHP版本必须为 5.4.0 以上. <a href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58062">详情</a>';
-        }else{
-            $ret['php']['version']['class'] = '';
+            $ret['php']['version']['remark'] = 'PHP版本必须为 5.3.0 以上. <a href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58062">详情</a>';
         }
 
         $ret['php']['mysql']['ok'] = function_exists('mysql_connect');
@@ -118,7 +111,7 @@ class InstallController extends Controller
             }
         }
 
-        $ret['php']['fopen']['ok'] = ini_get('allow_url_fopen') && function_exists('fsockopen');
+        $ret['php']['fopen']['ok'] = @ini_get('allow_url_fopen') && function_exists('fsockopen');
         if($ret['php']['fopen']['ok']) {
             $ret['php']['fopen']['value'] = '<span class="glyphicon glyphicon-ok text-success"></span>';
         } else {
@@ -200,7 +193,7 @@ class InstallController extends Controller
             $ret['php']['asp_tags']['remark'] = '请禁用可以使用ASP 风格的标志，配置php.ini中asp_tags = Off';
         }
 
-    $ret['write']['root']['ok'] = 1;
+        $ret['write']['root']['ok'] = $this->local_writeable(IA_ROOT . '/');
         if($ret['write']['root']['ok']) {
             $ret['write']['root']['value'] = '<span class="glyphicon glyphicon-ok text-success"></span>';
             $ret['write']['root']['class'] = 'success';
@@ -210,7 +203,7 @@ class InstallController extends Controller
             $ret['write']['root']['failed'] = true;
             $ret['write']['root']['remark'] = '本地目录无法写入, 将无法使用自动更新功能, 系统无法正常运行.  <a href="http://bbs.we7.cc/">详情</a>';
         }
-      $ret['write']['data']['ok'] = 1;
+        $ret['write']['data']['ok'] = $this->local_writeable(IA_ROOT . '/data');
         if($ret['write']['data']['ok']) {
             $ret['write']['data']['value'] = '<span class="glyphicon glyphicon-ok text-success"></span>';
             $ret['write']['data']['class'] = 'success';
@@ -222,20 +215,35 @@ class InstallController extends Controller
         }
 
         $ret['continue'] = true;
-      // print_r($ret);die;
         foreach($ret['php'] as $opt) {
             if(isset($opt['failed'])) {
-                $ret['continue'] = false;
-                break;
+                if($opt['failed']){
+                    $ret['continue'] = false;
+                    break;
+                }
             }
         }
-        if(isset($ret['write']['failed'])) {
+        if(isset($ret['write']['data']['failed']) || isset($ret['write']['root']['failed'] )) {
             $ret['continue'] = false;
         }
-
-
-
         return $this->render("install-ambient",['ret'=>$ret]);
+    }
+
+    function local_writeable($dir) {
+        $writeable = 0;
+        if(!is_dir($dir)) {
+            @mkdir($dir, 0777);
+        }
+        if(is_dir($dir)) {
+            if($fp = fopen("$dir/test.txt", 'w')) {
+                fclose($fp);
+                unlink("$dir/test.txt");
+                $writeable = 1;
+            } else {
+                $writeable = 0;
+            }
+        }
+        return $writeable;
     }
 
     /*
