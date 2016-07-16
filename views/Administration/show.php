@@ -39,8 +39,8 @@
                             <td align="center"><span class="label label-sm label-danger"><?= $v['account'] ?></span></td>
                             <td align="center">
                                 <a href="?r=administration/attribute&aid=<?php echo $v['aid'] ?>" >查看属性</a>
-                                <a href="javascript:void(0)" onclick="fun1(<?php echo $v['aid'] ?>)" class="fa fa-trash-o" >删除</a>
-                                <a href="?r=administration/save&aid=<?php echo $v['aid'] ?>" class="fa fa-edit" ></a>
+                                <a href="javascript:void(0)" onclick="fun1(<?php echo $v['aid'] ?>)">删除</a>
+                                <a href="?r=administration/save&aid=<?php echo $v['aid'] ?>"></a>
                             </td>
                             
                         </tr>
