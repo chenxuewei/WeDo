@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
                 return [
                     'class' => 'yii\db\Connection',
@@ -7,3 +8,15 @@
                     'charset' => 'utf8',
                     'tablePrefix' => 'wd_',   //加入前缀名称
                 ];
+=======
+<?php 
+                    return [
+                        'class' => 'yii\db\Connection',
+                        'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=wedo',
+                        'username' => 'root',
+                        'password' => '123',
+                        'charset' => 'utf8',
+                        'tablePrefix' => 'wd_',   //加入前缀名称
+                    ];
+
+>>>>>>> 05caaaa97def68f8aa660b057722de8c86aa7f85
