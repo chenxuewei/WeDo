@@ -144,7 +144,7 @@ class AdministrationController extends HomeController
         {
             $num = mt_rand(0, $len); $randString .= $str[$num];
         }
-        return $randString ;
+        return $randString;
     }
 	
 }
