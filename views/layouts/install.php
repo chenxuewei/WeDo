@@ -1,11 +1,12 @@
+
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cn" id="html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>安装系统 - 微度 - 公众平台自助开源引度</title>
-<!--    <link rel="stylesheet" href="install/bootstrap.min.css">-->
+    <!--    <link rel="stylesheet" href="install/bootstrap.min.css">-->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <style>
         html,body{font-size:13px;font-family:"Microsoft YaHei UI", "微软雅黑", "宋体"; background: #060e1b;}
@@ -88,13 +89,14 @@
 </div>
     </span>
 <canvas id="canvas"></canvas>
-<script src="texiao/te1.js"></script>
+
 <script>
     "use strict";
+    var html=document.getElementById('html'),
     var canvas = document.getElementById('canvas'),
         ctx = canvas.getContext('2d'),
         w = canvas.width = window.innerWidth,
-        h = canvas.height =window.innerHeight,
+        h = canvas.height =window.innerHeight*2,
 
         hue = 217,
         stars = [],
