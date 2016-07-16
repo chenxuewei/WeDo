@@ -37,9 +37,8 @@ class AdministrationController extends HomeController
 			 	$arr['atoken']=$aa;
 			 }else{
 			 	$ass=array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
-			 	$num = rand(0,52);
-			 	$arr['atoken']=substr_replace($aa,$ass[$num],0,1);
-			 	
+			 	$num = rand(0,51);
+			 	$arr['atoken']=substr_replace($aa,$ass[$num],0,1);		 	
 			 }
 
 			 $models=new WdAccount();
@@ -60,7 +59,8 @@ class AdministrationController extends HomeController
         $session->open();
         $uid=$session->get("uid");
 		$connection=\Yii::$app->db;
-		$sql="select * from wd_account join wd_user on wd_account.uid=wd_user.uid where wd_account.uid='$uid'";
+		$tem = $connection->tablePrefix;
+		$sql="select * from ".$tem."account join wd_user on ".$tem."account.uid=".$tem."user.uid where ".$tem."account.uid='$uid'";
 		$row=$connection->createCommand($sql)->queryAll();
 		return $this->render('show',['arr'=>$row]);
 	}
