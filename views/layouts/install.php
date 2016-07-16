@@ -26,25 +26,22 @@
             width:100%;
             height: 100%;
         }
-
         .codrops-demos a {
 
         }
-
         .codrops-demos a:hover,
         .codrops-demos a.current-demo {
             border-color: #383a3c;
         }
 
     </style>
-
     <!--[if lt IE 9]>
-    <script src="install/html5shiv.min.js"></script>
-    <script src="install/respond.min.js"></script>
+
     <![endif]-->
 </head>
 <body>
 <span class="codrops-demos">
+
 <div class="container" style="opacity: 0.6;"  >
     <div class="header" style="margin:15px auto;">
         <ul class="nav nav-pills pull-right" role="tablist">
@@ -89,14 +86,13 @@
 </div>
     </span>
 <canvas id="canvas"></canvas>
-
 <script>
     "use strict";
-    var html=document.getElementById('html'),
+
     var canvas = document.getElementById('canvas'),
         ctx = canvas.getContext('2d'),
         w = canvas.width = window.innerWidth,
-        h = canvas.height =window.innerHeight*2,
+        h = canvas.height = window.innerHeight*1.8,
 
         hue = 217,
         stars = [],
@@ -162,9 +158,9 @@
             twinkle = random(10);
 
         if (twinkle === 1 && this.alpha > 0) {
-            this.alpha -= 0.05;
+            this.alpha -= 0.09;
         } else if (twinkle === 2 && this.alpha < 1) {
-            this.alpha += 0.05;
+            this.alpha += 0.6;
         }
 
         ctx.globalAlpha = this.alpha;
@@ -179,7 +175,7 @@
     function animation() {
         ctx.globalCompositeOperation = 'source-over';
         ctx.globalAlpha = 0.8;
-        ctx.fillStyle = 'hsla(' + hue + ', 64%, 6%, 1)';
+        ctx.fillStyle = 'hsla(' + hue + ', 64%, 5%, 1)';
         ctx.fillRect(0, 0, w, h)
 
         ctx.globalCompositeOperation = 'lighter';

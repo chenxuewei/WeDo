@@ -268,70 +268,67 @@ class InstallController extends Controller
         $pwd=$post['db']['password'];//数据库密码
         $db=$post['db']['name'];//数据库名字
         $uname=$post['user']['username'];//用户名
-        $upwd=$post['user']['password'];//用户密码
+        $upwd=md5($post['user']['password']);//用户密码
         $dbtem=$post['db']['prefix'];//表前缀
         //echo $db;die;
 //        $urepwd=$post['urepwd'];//确认用户密码
-        if ($link= mysqli_connect("$host","$name","$pwd","","$duan")){
-            $db_selected = mysqli_select_db($link , "$db");
-            if($db_selected){
-                $sql="drop database ".$db;
-                mysqli_query($link , $sql);
-            }
-            $sql="create database ".$db;
+        @$link = mysqli_connect("$host","$name","$pwd","","$duan");
+        if(!$link){
+            return $this->error('数据库连接失败，请检查输入项');
+        }
+        $db_selected = mysqli_select_db($link , "$db");
+        if($db_selected){
+            $sql="drop database ".$db;
             mysqli_query($link , $sql);
-            $file=file_get_contents('./assets/wedo.sql');
-            $arr=explode('-- ----------------------------',$file);
-            $db_selected = mysqli_select_db($link , $db);
-            for($i=0;$i<count($arr);$i++){
-                if($i%2==0){
-                    $a=explode(";",trim($arr[$i]));
-                    array_pop($a);
-                    foreach($a as $v){
-                        mysqli_query($link , $v);
-                    }
+        }
+        $sql="create database ".$db;
+        mysqli_query($link , $sql);
+        $file=file_get_contents('./assets/wedo.sql');
+        $arr=explode('-- ----------------------------',$file);
+        $db_selected = mysqli_select_db($link , $db);
+        for($i=0;$i<count($arr);$i++){
+            if($i%2==0){
+                $a=explode(";",trim($arr[$i]));
+                array_pop($a);
+                foreach($a as $v){
+                    mysqli_query($link , $v);
                 }
             }
-            
-            $str="<?php
-                    return [
-                        'class' => 'yii\db\Connection',
-                        'dsn' => 'mysql:host=".$host.";port=".$duan.";dbname=".$db."',
-                        'username' => '".$name."',
-                        'password' => '".$pwd."',
-                        'charset' => 'utf8',
-                        'tablePrefix' => '".$dbtem."',   //加入前缀名称
-                    ];";
-            file_put_contents('../config/db.php',$str);
-            //修改表前缀
-            $a = "SHOW TABLES FROM ".$db;
-            $aa = mysqli_query($link,$a);
-            while($arr = $aa->fetch_row()){
-                $table = $dbtem.$arr[0];
-                mysqli_query($link,"rename table `$arr[0]` to $table");     
-            }
-            $str1="<?php
-                        \$pdo=new PDO('mysql:host= $host;port=".$duan.";dbname=$db','$name','$pwd',array(PDO::MYSQL_ATTR_INIT_COMMAND=>'set names utf8'));
-                         ?>";
-            file_put_contents('./assets/abc.php',$str1);
-            $tt = $dbtem."user";
-            $sql="insert into `$tt` (uname,upwd) VALUES ('$uname','$upwd')";
-            mysqli_query($link , $sql);
-            //mysqli_close($link);
-            $counter_file       =   'assets/existence.php';//文件名及路径,在当前目录下新建aa.txt文件
-            $fopen                     =   fopen($counter_file,'wb');//新建文件命令
-            fputs($fopen,   'aaaaaa ');//向文件中写入内容;
-            fclose($fopen);
-            $strs=str_replace("// 'db' => require(__DIR__ . '/db.php'),","'db' => require(__DIR__ . '/db.php'),",file_get_contents("../config/web.php"));
-            file_put_contents("../config/web.php",$strs);
-            
-            return  $this->success(['extra/login'],'安装完成，即将跳入登陆页面！');
-        }else{
-            echo "<script>
-                alert('数据库账号或密码错误');
-                location.href='index.php?r=install/mysql';
-                </script>";
         }
+        
+        $str="<?php
+                return [
+                    'class' => 'yii\db\Connection',
+                    'dsn' => 'mysql:host=".$host.";port=".$duan.";dbname=".$db."',
+                    'username' => '".$name."',
+                    'password' => '".$pwd."',
+                    'charset' => 'utf8',
+                    'tablePrefix' => '".$dbtem."',   //加入前缀名称
+                ];";
+        file_put_contents('../config/db.php',$str);
+        //修改表前缀
+        $a = "SHOW TABLES FROM ".$db;
+        $aa = mysqli_query($link,$a);
+        while($arr = $aa->fetch_row()){
+            $table = $dbtem.$arr[0];
+            mysqli_query($link,"rename table `$arr[0]` to $table");     
+        }
+        $str1="<?php
+                    \$pdo=new PDO('mysql:host= $host;port=".$duan.";dbname=$db','$name','$pwd',array(PDO::MYSQL_ATTR_INIT_COMMAND=>'set names utf8'));
+                     ?>";
+        file_put_contents('./assets/abc.php',$str1);
+        $tt = $dbtem."user";
+        $sql="insert into `$tt` (uname,upwd) VALUES ('$uname','$upwd')";
+        mysqli_query($link , $sql);
+        //mysqli_close($link);
+        $counter_file       =   'assets/existence.php';//文件名及路径,在当前目录下新建aa.txt文件
+        $fopen                     =   fopen($counter_file,'wb');//新建文件命令
+        fputs($fopen,   'aaaaaa ');//向文件中写入内容;
+        fclose($fopen);
+        $strs=str_replace("// 'db' => require(__DIR__ . '/db.php'),","'db' => require(__DIR__ . '/db.php'),",file_get_contents("../config/web.php"));
+        file_put_contents("../config/web.php",$strs);
+        
+        return  $this->success(['extra/login'],'安装完成，即将跳入登陆页面！');
 
     }
 
