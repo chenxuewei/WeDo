@@ -66,7 +66,7 @@ class ExtraController extends Controller
         $sql = "select * from ".$tem."user where uname='".$arr['username']."'";
         $res = $db->createCommand("select * from ".$tem."user")->queryOne();
         if($res){
-            if($res['upwd']==$arr['password']){
+            if($res['upwd']==md5($arr['password'])){
                 $session->set("uid",$res['uid']);
                 $session->set("uname",$res['uname']);
                 echo "<script>alert('欢迎登陆');location.href='?r=index/index'</script>";

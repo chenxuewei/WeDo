@@ -268,7 +268,7 @@ class InstallController extends Controller
         $pwd=$post['db']['password'];//数据库密码
         $db=$post['db']['name'];//数据库名字
         $uname=$post['user']['username'];//用户名
-        $upwd=$post['user']['password'];//用户密码
+        $upwd=md5($post['user']['password']);//用户密码
         $dbtem=$post['db']['prefix'];//表前缀
         //echo $db;die;
 //        $urepwd=$post['urepwd'];//确认用户密码
