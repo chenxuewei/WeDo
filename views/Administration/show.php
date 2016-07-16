@@ -38,9 +38,18 @@
                             <td align="center"><?= $v['appsecret'] ?></td>
                             <td align="center"><?= $v['account'] ?></td>
                             <td align="center">
-                                <a href="?r=administration/attribute&aid=<?php echo $v['aid'] ?>" >查看属性</a>
-                                <a href="javascript:void(0)" onclick="fun1(<?php echo $v['aid'] ?>)" >删除</a>
-                                <a href="?r=administration/save&aid=<?php echo $v['aid'] ?>" >编辑</a>
+                                <a href="?r=administration/attribute&aid=<?php echo $v['aid'] ?>" class="btn btn-xs btn-default" style="background:bisque" >
+                                    <i class="fa fa-search"></i>
+                                    View
+                                </a>
+                                <a href="?r=administration/save&aid=<?php echo $v['aid'] ?>" class="btn btn-default btn-xs mbs"  style="background: greenyellow">
+                                        <i class="fa fa-edit"></i>
+                                        Edit
+                                </a>
+                                <a href="javascript:void(0)" onclick="fun1(<?php echo $v['aid'] ?>)" class="btn btn-danger btn-xs mbs">
+                                        <i class="fa fa-trash-o"></i>
+                                        Delete
+                                    </a>
                             </td>
                             
                         </tr>
