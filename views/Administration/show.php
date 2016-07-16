@@ -33,14 +33,14 @@
                     <?php foreach ($arr as $k => $v): ?>
                         <tr>
                             
-                            <td align="center"><?= $v['aname'] ?></td>
-                            <td align="center"><?= $v['appid'] ?></td>
-                            <td align="center"><?= $v['appsecret'] ?></td>
-                            <td align="center"><?= $v['account'] ?></td>
+                            <td align="center"><span class="label label-sm label-success"><?= $v['aname'] ?></span></td>
+                            <td align="center"><span class="label label-sm label-info"><?= $v['appid'] ?></span></td>
+                            <td align="center"><span class="label label-sm label-warning"><?= $v['appsecret'] ?>   </span></td>
+                            <td align="center"><span class="label label-sm label-danger"><?= $v['account'] ?></span></td>
                             <td align="center">
                                 <a href="?r=administration/attribute&aid=<?php echo $v['aid'] ?>" >查看属性</a>
-                                <a href="javascript:void(0)" onclick="fun1(<?php echo $v['aid'] ?>)" >删除</a>
-                                <a href="?r=administration/save&aid=<?php echo $v['aid'] ?>" >编辑</a>
+                                <a href="javascript:void(0)" onclick="fun1(<?php echo $v['aid'] ?>)" class="fa fa-trash-o" >删除</a>
+                                <a href="?r=administration/save&aid=<?php echo $v['aid'] ?>" class="fa fa-edit" ></a>
                             </td>
                             
                         </tr>
