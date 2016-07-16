@@ -33,11 +33,12 @@
                     <?php foreach ($arr as $k => $v): ?>
                         <tr>
                             
-                            <td align="center"><?= $v['aname'] ?></td>
-                            <td align="center"><?= $v['appid'] ?></td>
-                            <td align="center"><?= $v['appsecret'] ?></td>
-                            <td align="center"><?= $v['account'] ?></td>
+                            <td align="center"><span class="label label-sm label-success"><?= $v['aname'] ?></span></td>
+                            <td align="center"><span class="label label-sm label-info"><?= $v['appid'] ?></span></td>
+                            <td align="center"><span class="label label-sm label-warning"><?= $v['appsecret'] ?>   </span></td>
+                            <td align="center"><span class="label label-sm label-danger"><?= $v['account'] ?></span></td>
                             <td align="center">
+
                                 <a href="?r=administration/attribute&aid=<?php echo $v['aid'] ?>" class="btn btn-xs btn-default" style="background:bisque" >
                                     <i class="fa fa-search"></i>
                                     View
