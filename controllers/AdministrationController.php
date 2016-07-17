@@ -51,7 +51,7 @@ class AdministrationController extends HomeController
 			return $this->success('administration/sel');
 			
 		}else{
-			return $this->render('glist',['error'=>$models->getErrors()]);
+			return $this->render('glist',['error'=>$account->getErrors()]);
 		}
 
 	}
