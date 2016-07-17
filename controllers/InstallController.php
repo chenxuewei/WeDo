@@ -24,7 +24,13 @@ class InstallController extends Controller
        if (is_file("assets/existence.php")) {
            return $this->redirect(['extra/login']);
        } else {
-           return $this->redirect(['install/install']);
+            $ok = $this->local_writeable(IA_ROOT . '/');
+            if($ok){
+                return $this->redirect(['install/install']);
+            } else {
+                return $this->error("本地目录无法写入,请更改目录权限");
+            }
+           
        }
     }
 
