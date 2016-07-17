@@ -6,6 +6,8 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\User;
+use app\models\Account;
 use app\models\WdAccount;
 
 class AdministrationController extends HomeController
@@ -37,19 +39,19 @@ class AdministrationController extends HomeController
 			 	$arr['atoken']=$aa;
 			 }else{
 			 	$ass=array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
-			 	$num = rand(0,52);
+			 	$num = rand(0,51);
+
 			 	$arr['atoken']=substr_replace($aa,$ass[$num],0,1);
-			 	
 			 }
 
-			 $models=new WdAccount();
-			 $models->attributes=$arr;
-			 $res=$models->insert();
+			 $account=new Account();
+			 $account->attributes=$arr;
+			 $res=$account->insert();
 		if($res){
 			return $this->success('administration/sel');
 			
 		}else{
-			return $this->render('glist',['error'=>$models->getErrors()]);
+			return $this->render('glist',['error'=>$account->getErrors()]);
 		}
 
 	}
@@ -59,9 +61,12 @@ class AdministrationController extends HomeController
 		$session = \Yii::$app->session;
         $session->open();
         $uid=$session->get("uid");
-		$connection=\Yii::$app->db;
-		$sql="select * from wd_account join wd_user on wd_account.uid=wd_user.uid where wd_account.uid='$uid'";
-		$row=$connection->createCommand($sql)->queryAll();
+		// $connection=\Yii::$app->db;
+		// $tem = $connection->tablePrefix;
+        $row = Account::find()->where("uid='$uid'")->asArray()->all();
+        //print_r($row);die;
+		//$sql="select * from ".$tem."account join wd_user on ".$tem."account.uid=".$tem."user.uid where ".$tem."account.uid='$uid'";
+		//$row=$connection->createCommand($sql)->queryAll();
 		return $this->render('show',['arr'=>$row]);
 	}
 
@@ -69,19 +74,29 @@ class AdministrationController extends HomeController
 	public function actionAttribute(){
 		$request=\yii::$app->request;
 		$aid=$request->get('aid');
-		$query=new \yii\db\Query();
-		$ress=$query->select('*')->from('wd_account')->where("aid='$aid'")->one();
+		// $query=new \yii\db\Query();
+		// $connection=\Yii::$app->db;
+		//$tem = $connection->tablePrefix;
+		$ress=Account::find()->where("aid='$aid'")->one();
+
+		//$ress=$query->select('*')->from($tem."account")->where("aid='$aid'")->one();
+
 		return $this->render('slist',['arr2'=>$ress]);
 	}
 
 
 	//公众号删除
 	function actionDel(){
+		$account=new Account();
 		$request=\yii::$app->request;
 		$aid=$request->get('aid');
 		//print_r($aid);die;
-		$connection=\Yii::$app->db;
-		$re=$connection->createCommand()->delete('wd_account',"aid='$aid'")->execute();
+		// $connection=\Yii::$app->db;
+		// $tem = $connection->tablePrefix;
+
+
+		$re=$account->deleteAll("aid='$aid'");
+
 		if($re){
 			return $this->success('administration/sel');
 			
@@ -95,8 +110,11 @@ class AdministrationController extends HomeController
 	public function actionSave(){
 		$request=\yii::$app->request;
 		$aid=$request->get('aid');
-		$query=new \yii\db\Query();
-		$date=$query->select('*')->from('wd_account')->where("aid='$aid'")->one();
+		// $query=new \yii\db\Query();
+		// $connection=\Yii::$app->db;
+		// $tem = $connection->tablePrefix;
+
+		$date=Account::find()->where("aid='$aid'")->one();
 		return $this->render('saveform',['arr1'=>$date]);
 	}
 
@@ -106,11 +124,17 @@ class AdministrationController extends HomeController
 		$aid=$request->post('aid');
 		//print_r($aid);die;
 		$ass=$request->post();
-		$connection=\Yii::$app->db;
-		$msg=$connection->createCommand()->update('wd_account',['aname'=>$ass['aname'],'appid'=>$ass['appid'],'appsecret'=>$ass['appsecret'],'account'=>$ass['account']],"aid='$aid'")->execute();
+		// $connection=\Yii::$app->db;
+		// $tem = $connection->tablePrefix;
+		$account=Account::findOne($aid);
+		$account->aname=$ass['aname'];
+		$account->appid=$ass['appid'];
+		$account->appsecret=$ass['appsecret'];
+		$account->account=$ass['account'];
+		//$msg=$connection->createCommand()->update($tem."account",['aname'=>$ass['aname'],'appid'=>$ass['appid'],'appsecret'=>$ass['appsecret'],'account'=>$ass['account']],"aid='$aid'")->execute();
+		$msg=$account->save();
 		if($msg){
 			return $this->success('administration/sel');
-			
 		}else{
 			return $this->error('编辑失败');
 		}
@@ -126,7 +150,7 @@ class AdministrationController extends HomeController
         {
             $num = mt_rand(0, $len); $randString .= $str[$num];
         }
-        return $randString ;
+        return $randString;
     }
 	
 }
