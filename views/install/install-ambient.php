@@ -110,7 +110,7 @@
     </table>
 </div>
 
-<div class="alert alert-info">系统要求微擎整个安装目录必须可写, 才能使用微擎所有功能。</div>
+<div class="alert alert-info">系统要求微度整个安装目录必须可写, 才能使用微擎所有功能。</div>
 <div class="panel panel-default">
     <div class="panel-heading">目录权限监测</div>
     <table class="table table-striped">

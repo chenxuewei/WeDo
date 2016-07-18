@@ -61,12 +61,20 @@ class AdministrationController extends HomeController
 		$session = \Yii::$app->session;
         $session->open();
         $uid=$session->get("uid");
+<<<<<<< HEAD
 		// $connection=\Yii::$app->db;
 		// $tem = $connection->tablePrefix;
         $row = Account::find()->where("uid='$uid'")->asArray()->all();
         //print_r($row);die;
 		//$sql="select * from ".$tem."account join wd_user on ".$tem."account.uid=".$tem."user.uid where ".$tem."account.uid='$uid'";
 		//$row=$connection->createCommand($sql)->queryAll();
+=======
+		$connection=\Yii::$app->db;
+		$tem = $connection->tablePrefix;
+
+		$sql="select * from ".$tem."account join wd_user on ".$tem."account.uid=".$tem."user.uid where ".$tem."account.uid='$uid'";
+		$row=$connection->createCommand($sql)->queryAll();
+>>>>>>> 04a8103e9b18cd3bc616c7d10da7d15c9ec2fd98
 		return $this->render('show',['arr'=>$row]);
 	}
 
@@ -74,12 +82,22 @@ class AdministrationController extends HomeController
 	public function actionAttribute(){
 		$request=\yii::$app->request;
 		$aid=$request->get('aid');
+<<<<<<< HEAD
 		// $query=new \yii\db\Query();
 		// $connection=\Yii::$app->db;
 		//$tem = $connection->tablePrefix;
 		$ress=Account::find()->where("aid='$aid'")->one();
 
 		//$ress=$query->select('*')->from($tem."account")->where("aid='$aid'")->one();
+=======
+		$query=new \yii\db\Query();
+		$connection=\Yii::$app->db;
+		$tem = $connection->tablePrefix;
+
+
+
+		$ress=$query->select('*')->from($tem."account")->where("aid='$aid'")->one();
+>>>>>>> 04a8103e9b18cd3bc616c7d10da7d15c9ec2fd98
 
 		return $this->render('slist',['arr2'=>$ress]);
 	}
@@ -91,11 +109,19 @@ class AdministrationController extends HomeController
 		$request=\yii::$app->request;
 		$aid=$request->get('aid');
 		//print_r($aid);die;
+<<<<<<< HEAD
 		// $connection=\Yii::$app->db;
 		// $tem = $connection->tablePrefix;
 
 
 		$re=$account->deleteAll("aid='$aid'");
+=======
+		$connection=\Yii::$app->db;
+		$tem = $connection->tablePrefix;
+
+
+		$re=$connection->createCommand()->delete($tem."account","aid='$aid'")->execute();
+>>>>>>> 04a8103e9b18cd3bc616c7d10da7d15c9ec2fd98
 
 		if($re){
 			return $this->success('administration/sel');
@@ -110,11 +136,19 @@ class AdministrationController extends HomeController
 	public function actionSave(){
 		$request=\yii::$app->request;
 		$aid=$request->get('aid');
+<<<<<<< HEAD
 		// $query=new \yii\db\Query();
 		// $connection=\Yii::$app->db;
 		// $tem = $connection->tablePrefix;
 
 		$date=Account::find()->where("aid='$aid'")->one();
+=======
+		$query=new \yii\db\Query();
+		$connection=\Yii::$app->db;
+		$tem = $connection->tablePrefix;
+
+		$date=$query->select('*')->from($tem."account")->where("aid='$aid'")->one();
+>>>>>>> 04a8103e9b18cd3bc616c7d10da7d15c9ec2fd98
 		return $this->render('saveform',['arr1'=>$date]);
 	}
 
@@ -124,6 +158,7 @@ class AdministrationController extends HomeController
 		$aid=$request->post('aid');
 		//print_r($aid);die;
 		$ass=$request->post();
+<<<<<<< HEAD
 		// $connection=\Yii::$app->db;
 		// $tem = $connection->tablePrefix;
 		$account=Account::findOne($aid);
@@ -133,6 +168,14 @@ class AdministrationController extends HomeController
 		$account->account=$ass['account'];
 		//$msg=$connection->createCommand()->update($tem."account",['aname'=>$ass['aname'],'appid'=>$ass['appid'],'appsecret'=>$ass['appsecret'],'account'=>$ass['account']],"aid='$aid'")->execute();
 		$msg=$account->save();
+=======
+		$connection=\Yii::$app->db;
+		$tem = $connection->tablePrefix;
+
+
+		$msg=$connection->createCommand()->update($tem."account",['aname'=>$ass['aname'],'appid'=>$ass['appid'],'appsecret'=>$ass['appsecret'],'account'=>$ass['account']],"aid='$aid'")->execute();
+
+>>>>>>> 04a8103e9b18cd3bc616c7d10da7d15c9ec2fd98
 		if($msg){
 			return $this->success('administration/sel');
 		}else{

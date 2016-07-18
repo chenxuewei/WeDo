@@ -95,6 +95,7 @@ Chat
                 </div>
                 <!--END TITLE & BREADCRUMB PAGE-->
                 <!--BEGIN CONTENT-->
+                <center>
                 <div class="page-content">
                     <div class="row">
 
@@ -108,7 +109,7 @@ Chat
                                 </div>
                                 <div class="portlet-body">
                                     <form action="?r=administration/add" method="post" class="form-validate-signup">
-                                 <center>  
+                                   
                                 <table width="200" height="300">
                                 <input name="_csrf" type="hidden" id="_csrf" value="<?= Yii::$app->request->csrfToken ?>" />
                                     <tr>
@@ -153,7 +154,7 @@ Chat
 
                                 
                             </table>
-                             </center>           
+                                       
 
                                     </form>
                                 </div>
@@ -161,6 +162,7 @@ Chat
                         </div>
                     </div>
                 </div>
+                </center> 
                 <!--END CONTENT-->
             </div>
             <!--BEGIN FOOTER-->

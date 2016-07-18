@@ -150,6 +150,7 @@ class Application extends \yii\base\Application
             'request' => ['class' => 'yii\web\Request'],
             'response' => ['class' => 'yii\web\Response'],
             'session' => ['class' => 'yii\web\Session'],
+            'Dbsession' => ['class' => 'yii\web\DbSession'],
             'user' => ['class' => 'yii\web\User'],
             'errorHandler' => ['class' => 'yii\web\ErrorHandler'],
         ]);

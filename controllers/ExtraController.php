@@ -38,7 +38,8 @@ class ExtraController extends Controller
     function actionLogin()
     {
       if (is_file("assets/existence.php")) {
-            if (empty(Yii::$app->session->get('uid'))) {
+	    $uid = Yii::$app->session->get('uid');
+            if (empty($uid)) {
                return $this->render('extra-signin');
             } else {
                 return $this->success(['index/index'],'您已处于登陆状态，无需再次登陆');
@@ -66,7 +67,7 @@ class ExtraController extends Controller
         $sql = "select * from ".$tem."user where uname='".$arr['username']."'";
         $res = $db->createCommand("select * from ".$tem."user")->queryOne();
         if($res){
-            if($res['upwd']==$arr['password']){
+            if($res['upwd']==md5($arr['password'])){
                 $session->set("uid",$res['uid']);
                 $session->set("uname",$res['uname']);
                 echo "<script>alert('欢迎登陆');location.href='?r=index/index'</script>";
