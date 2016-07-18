@@ -2,7 +2,7 @@
 <<<<<<< HEAD
                 return [
                     'class' => 'yii\db\Connection',
-                    'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=wedo',
+                    'dsn' => 'mysql:host=192.168.1.142;port=3306;dbname=wedo',
                     'username' => 'root',
                     'password' => '123',
                     'charset' => 'utf8',
