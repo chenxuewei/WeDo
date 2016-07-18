@@ -147,8 +147,6 @@ Chat
                                 <?php 
                                     if(!empty($error)){
                                         echo $error['aname'][0];
-                                        echo $error['appid'][0];
-                                        echo $error['appsecret'][0];
                                     }
                                  ?>
 
