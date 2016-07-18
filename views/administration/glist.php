@@ -83,9 +83,9 @@ Chat
                         <div class="page-title">Form Validation</div>
                     </div>
                     <ol class="breadcrumb page-breadcrumb">
-                        <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">后台</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-                        <li><a href="#">公众号管理</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-                        <li class="active">添加公众号</li>
+                        <li><i class="fa fa-home"></i>&nbsp;<a href="?r=index/index">后台</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li><a href="">公众号管理</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="active"><a href="?r=administration/index">添加公众号</a></li>
                     </ol>
                     <div class="btn btn-blue reportrange hide"><i class="fa fa-calendar"></i>&nbsp;<span></span>&nbsp;report&nbsp;<i class="fa fa-angle-down"></i>
                         <input type="hidden" name="datestart" />
@@ -149,7 +149,6 @@ Chat
                                         echo $error['aname'][0];
                                         echo $error['appid'][0];
                                         echo $error['appsecret'][0];
-                                        echo $error['account'][0];
                                     }
                                  ?>
 

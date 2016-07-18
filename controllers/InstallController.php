@@ -24,7 +24,7 @@ class InstallController extends Controller
        if (is_file("assets/existence.php")) {
            return $this->redirect(['extra/login']);
        } else {
-           return $this->redirect(['install/install']);
+            return $this->redirect(['install/install']);
        }
     }
 

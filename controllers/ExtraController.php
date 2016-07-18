@@ -38,7 +38,8 @@ class ExtraController extends Controller
     function actionLogin()
     {
       if (is_file("assets/existence.php")) {
-            if (empty(Yii::$app->session->get('uid'))) {
+	    $uid = Yii::$app->session->get('uid');
+            if (empty($uid)) {
                return $this->render('extra-signin');
             } else {
                 return $this->success(['index/index'],'您已处于登陆状态，无需再次登陆');

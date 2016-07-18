@@ -79,6 +79,7 @@ class AdministrationController extends HomeController
 		//$tem = $connection->tablePrefix;
 		$ress=Account::find()->where("aid='$aid'")->one();
 
+
 		//$ress=$query->select('*')->from($tem."account")->where("aid='$aid'")->one();
 
 		return $this->render('slist',['arr2'=>$ress]);
