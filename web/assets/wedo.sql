@@ -1,25 +1,25 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : 陈学卫
 Source Server Version : 50540
-Source Host           : 127.0.0.1:3306
+Source Host           : 192.168.1.142:3306
 Source Database       : wedo
 
 Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-07-19 13:44:22
+Date: 2016-07-19 13:55:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for wd_account
+-- Table structure for account
 -- ----------------------------
-DROP TABLE IF EXISTS `wd_account`;
-CREATE TABLE `wd_account` (
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE `account` (
   `aid` int(11) NOT NULL AUTO_INCREMENT,
   `mid` int(11) DEFAULT NULL,
   `uid` int(11) DEFAULT NULL,
@@ -36,14 +36,14 @@ CREATE TABLE `wd_account` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of wd_account
+-- Records of account
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for wd_graphic_reply
+-- Table structure for graphic_reply
 -- ----------------------------
-DROP TABLE IF EXISTS `wd_graphic_reply`;
-CREATE TABLE `wd_graphic_reply` (
+DROP TABLE IF EXISTS `graphic_reply`;
+CREATE TABLE `graphic_reply` (
   `grid` int(11) NOT NULL AUTO_INCREMENT,
   `reid` int(11) DEFAULT NULL,
   `grtitle` varchar(50) NOT NULL,
@@ -56,14 +56,14 @@ CREATE TABLE `wd_graphic_reply` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of wd_graphic_reply
+-- Records of graphic_reply
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for wd_menu
+-- Table structure for menu
 -- ----------------------------
-DROP TABLE IF EXISTS `wd_menu`;
-CREATE TABLE `wd_menu` (
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
   `mid` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `son_type` varchar(1) DEFAULT NULL,
@@ -75,14 +75,14 @@ CREATE TABLE `wd_menu` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of wd_menu
+-- Records of menu
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for wd_reply
+-- Table structure for reply
 -- ----------------------------
-DROP TABLE IF EXISTS `wd_reply`;
-CREATE TABLE `wd_reply` (
+DROP TABLE IF EXISTS `reply`;
+CREATE TABLE `reply` (
   `reid` int(11) NOT NULL AUTO_INCREMENT,
   `aid` int(11) DEFAULT NULL,
   `rename` varchar(50) DEFAULT NULL,
@@ -92,14 +92,14 @@ CREATE TABLE `wd_reply` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of wd_reply
+-- Records of reply
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for wd_text_reply
+-- Table structure for text_reply
 -- ----------------------------
-DROP TABLE IF EXISTS `wd_text_reply`;
-CREATE TABLE `wd_text_reply` (
+DROP TABLE IF EXISTS `text_reply`;
+CREATE TABLE `text_reply` (
   `trid` int(11) NOT NULL AUTO_INCREMENT,
   `reid` int(11) DEFAULT NULL,
   `trcontent` varchar(255) NOT NULL,
@@ -107,14 +107,14 @@ CREATE TABLE `wd_text_reply` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of wd_text_reply
+-- Records of text_reply
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for wd_user
+-- Table structure for user
 -- ----------------------------
-DROP TABLE IF EXISTS `wd_user`;
-CREATE TABLE `wd_user` (
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
   `uname` varchar(30) NOT NULL,
   `upwd` varchar(50) NOT NULL,
@@ -122,5 +122,5 @@ CREATE TABLE `wd_user` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of wd_user
+-- Records of user
 -- ----------------------------
