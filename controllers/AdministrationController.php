@@ -17,10 +17,10 @@ class AdministrationController extends HomeController
 		return $this->render('glist');
 	}
 
-	//公众号添加
+	//公众号添�?
 	public function actionAdd(){
 			 $atok=$this->actionRands(5);
-             $url=substr(' http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],0,strpos('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'we'))."/weixin.php?str=".$atok;
+             $url=substr('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],0,strpos('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'we'))."/weixin.php?str=".$atok;
              $session = \Yii::$app->session;
              $session->open();
 			 $connection=\Yii::$app->db;
@@ -56,7 +56,7 @@ class AdministrationController extends HomeController
 
 	}
 
-	//查询公众号
+	//查询公众�?
 	public function actionSel(){
 		$session = \Yii::$app->session;
         $session->open();
@@ -70,7 +70,7 @@ class AdministrationController extends HomeController
 		return $this->render('show',['arr'=>$row]);
 	}
 
-	//查询公众号属性
+	//查询公众号属�?
 	public function actionAttribute(){
 		$request=\yii::$app->request;
 		$aid=$request->get('aid');
@@ -86,7 +86,7 @@ class AdministrationController extends HomeController
 	}
 
 
-	//公众号删除
+	//公众号删�?
 	function actionDel(){
 		$account=new Account();
 		$request=\yii::$app->request;
@@ -107,7 +107,7 @@ class AdministrationController extends HomeController
 
 	}
 
-	//公众号编辑
+	//公众号编�?
 	public function actionSave(){
 		$request=\yii::$app->request;
 		$aid=$request->get('aid');
