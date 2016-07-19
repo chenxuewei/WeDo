@@ -40,17 +40,17 @@
                             <td align="center">
 
                                 <a href="?r=administration/attribute&aid=<?php echo $v['aid'] ?>" class="btn btn-xs btn-default" style="background:bisque" >
-                                    <i class="fa fa-search"></i>
-                                    View
-                                </a>
+                                <i class="fa fa-search"></i>查看
+                                </a>    
+                                
                                 <a href="?r=administration/save&aid=<?php echo $v['aid'] ?>" class="btn btn-default btn-xs mbs"  style="background: greenyellow">
-                                        <i class="fa fa-edit"></i>
-                                        Edit
-                                </a>
+                                <i class="fa fa-edit"></i>修改
+                                </a>       
+                                
                                 <a href="javascript:void(0)" onclick="fun1(<?php echo $v['aid'] ?>)" class="btn btn-danger btn-xs mbs">
-                                        <i class="fa fa-trash-o"></i>
-                                        Delete
-                                    </a>
+                                <i class="fa fa-trash-o"></i> 删除       
+                                        
+                                 </a>   
                             </td>
                             
                         </tr>
@@ -69,8 +69,3 @@
         })
     }
 </script>
-
-
-
-
-
