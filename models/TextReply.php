@@ -6,7 +6,6 @@ use yii\db\ActiveRecord;
 
 class TextReply extends ActiveRecord
 {
-	
 /**
      * @inheritdoc
      */
@@ -34,5 +33,4 @@ class TextReply extends ActiveRecord
             'trcontent' => 'Trcontent',
         ];
     }
-
 }
