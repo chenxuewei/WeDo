@@ -16,7 +16,7 @@ class MenuController extends Controller
      * 菜单创建页面
      */
     function actionMenuadd(){
-        $user=User::find()->asArray()->all();
+        $user=Account::find()->asArray()->all();
         $menu=Menu::find()->where(['pid'=>'0'])->asArray()->all();
         //print_r($user);die;
        return $this->render('menuadd',['user'=>$user,'menu'=>$menu]);
@@ -57,7 +57,7 @@ class MenuController extends Controller
 
     //获取表单页面
     function actionGetmenufrom(){
-        $user=User::find()->asArray()->all();
+        $user=Account::find()->asArray()->all();
         return $this->render('getmenufrom',['user'=>$user]);
     }
 
@@ -75,9 +75,8 @@ class MenuController extends Controller
     function actionGetmenu(){
         $request=\Yii::$app->request;
         $id=$request->post('user_id');
-        $user=User::find()->where('uid='.$id)->asArray()->one();
-        $arr=Account::find()->where('uid='.$id)->asArray()->one();
-        $access_token=$this->getAccessToken($arr['appid'],$arr['appsecret']);
+        $user=Account::find()->where('uid='.$id)->asArray()->one();
+        $access_token=$this->getAccessToken($user['appid'],$user['appsecret']);
        $url="https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token=".$access_token;
         $re=file_get_contents($url);
         $arr=json_decode($re,true);
@@ -99,7 +98,7 @@ class MenuController extends Controller
                 }
             }
         }
-//        print_r($menu);die;
+//        print_r($arr);die;
        return $this->render('menushow',['menu'=>$menu,'user'=>$user]);
     }
 

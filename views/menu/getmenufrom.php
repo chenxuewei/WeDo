@@ -34,7 +34,7 @@ use yii\widgets\ActiveForm;
                                 <?php
                                 foreach($user as $val) {
                                     ?>
-                                    <option value="<?php echo $val['uid'] ?>"><?php echo $val['uname'] ?></option>
+                                    <option value="<?php echo $val['aid'] ?>"><?php echo $val['aname'] ?></option>
                                     <?php
                                 }
                                 ?>
