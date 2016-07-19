@@ -65,7 +65,7 @@ class ExtraController extends Controller
         $db = Yii::$app->db;
         $tem = $db->tablePrefix;
         $sql = "select * from ".$tem."user where uname='".$arr['username']."'";
-        $res = $db->createCommand("select * from ".$tem."user")->queryOne();
+        $res = $db->createCommand($sql)->queryOne();
         if($res){
             if($res['upwd']==md5($arr['password'])){
                 $session->set("uid",$res['uid']);

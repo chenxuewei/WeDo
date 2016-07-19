@@ -7,3 +7,4 @@
                     'charset' => 'utf8',
                     'tablePrefix' => 'we_',   //加入前缀名称
                 ];
+

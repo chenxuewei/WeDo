@@ -20,7 +20,7 @@ class AdministrationController extends HomeController
 	//公众号添加
 	public function actionAdd(){
 			 $atok=$this->actionRands(5);
-             $url=substr('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],0,strpos('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'we'))."we7/we.php?str=".$atok;
+             $url=substr(' http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],0,strpos('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'we'))."/weixin.php?str=".$atok;
              $session = \Yii::$app->session;
              $session->open();
 			 $connection=\Yii::$app->db;

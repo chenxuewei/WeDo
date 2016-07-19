@@ -6,7 +6,7 @@ use yii\db\ActiveRecord;
 
 class Account extends ActiveRecord
 {
-    
+
     /**
      * @inheritdoc
      */
