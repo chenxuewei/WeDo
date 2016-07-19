@@ -6,15 +6,7 @@ use yii\db\ActiveRecord;
 
 class Account extends ActiveRecord
 {
-
-	/**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'wd_account';
-    }
-
+    
     /**
      * @inheritdoc
      */
