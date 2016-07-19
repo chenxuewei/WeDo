@@ -58,7 +58,7 @@
     })
 
     $('#token').click(function(){
-        var Url=document.getElementById("aurl");
+        var Url=document.getElementById("atoken");
         Url.select(); // 选择对象
         document.execCommand("Copy"); // 执行浏览器复制命令
         alert("Token地址已经复制到您的粘贴板");
