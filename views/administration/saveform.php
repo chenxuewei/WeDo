@@ -3,7 +3,7 @@
     <!--BEGIN TITLE & BREADCRUMB PAGE-->
     <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
         <div class="page-header pull-left">
-            <div class="page-title">One Page</div>
+            <div class="page-title">编辑公众号</div>
         </div>
         
        
@@ -14,11 +14,7 @@
     <div class="page-content">
         
             <h3 class="header-option-page mbxl">编辑公众号</h3>
-            
-                
 
-                    
-                        
                         <center>
                         <form action="?r=administration/up" method="post">
                             <table>

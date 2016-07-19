@@ -26,6 +26,8 @@ class Account extends ActiveRecord
             [['aname', 'account', 'atok', 'aurl'], 'string', 'max' => 255],
             [['appid', 'appsecret', 'atoken'], 'string', 'max' => 50],
             [['aname'],'unique'],
+            [['appid'], 'unique'],
+            [['appsecret'], 'unique']
         ];
     }
 
