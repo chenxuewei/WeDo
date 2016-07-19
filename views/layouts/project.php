@@ -572,7 +572,6 @@ AppAsset::register($this);
 
         <!--END CHAT FORM-->
         <!--BEGIN PAGE WRAPPER-->
-
       <?=$content?>
 
         <!--BEGIN FOOTER-->
@@ -589,7 +588,6 @@ AppAsset::register($this);
 
 <script>
     "use strict";
-
     var canvas = document.getElementById('canvas'),
         ctx = canvas.getContext('2d'),
         w = canvas.width = window.innerWidth,
