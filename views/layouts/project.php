@@ -72,7 +72,7 @@ AppAsset::register($this);
 
 
 
-<div class="codrops-demos" style="opacity: 0.54" >
+<div class="codrops-demos" style="opacity: 0.4" >
     <a id="totop" href="#"><i class="fa fa-angle-up"></i></a>
     <div id="header-topbar-option-demo" class="page-header-topbar" >
         <nav id="topbar" role="navigation" style="margin-bottom: 0; z-index: 2;" class="navbar navbar-default navbar-static-top">
@@ -515,13 +515,13 @@ AppAsset::register($this);
                     </li>
                     <li><a href="#"><i class="fa fa-th-list fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">自定义菜单选项</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="table-basic.html"><i class="fa fa-th-large"></i><span class="submenu-title">自定义菜单创建</span></a>
+                            <li><a href="?r=menu/menuadd"><i class="fa fa-th-large"></i><span class="submenu-title">自定义菜单创建</span></a>
                             </li>
                             <li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">自定义菜单查询</span></a>
                             </li>
                             <li><a href="table-action.html"><i class="fa fa-tencent-weibo"></i><span class="submenu-title">个性化菜单</span></a>
                             </li>
-                            <li><a href="table-filter.html"><i class="fa fa-filter"></i><span class="submenu-title">获取菜单配置</span></a>
+                            <li><a href="?r=menu/getmenufrom"><i class="fa fa-filter"></i><span class="submenu-title">获取菜单配置</span></a>
                             </li>
                         </ul>
                     </li>
