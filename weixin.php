@@ -18,23 +18,23 @@ define("APPID", $appid);
 define("APPSECRET", $appsecret);
 define("ID", $id);
 $wechatObj = new wechatCallbackapiTest();
-$wechatObj->valid();
+$wechatObj->valid($pdo);
 
 class wechatCallbackapiTest
 {
-	public function valid()
+	public function valid($pdo)
     {
         $echoStr = $_GET["echostr"];
 
         //valid signature , option
         if($this->checkSignature()){
         	echo $echoStr;
-            $this->responseMsg();
+            $this->responseMsg($pdo);
         	exit;
         }
     }
 
-    public function responseMsg()
+    public function responseMsg($pdo)
     {
 		//get post data, May be due to the different environments
 		$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
@@ -67,7 +67,6 @@ class wechatCallbackapiTest
                         $url="http://www.tuling123.com/openapi/api?key=81a7161f18e492a769d2dadb6c0ae363&info=".$keyword;
                         $html=file_get_contents($url);
                         $arr=json_decode($html,true);
-                        $msgType = "text";
                         $contentStr = $arr['text'];
                     }                	
                 	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
