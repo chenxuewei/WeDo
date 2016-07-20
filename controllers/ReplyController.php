@@ -7,6 +7,8 @@ use app\models\Reply;
 use app\models\TextReply;
 use app\models\Account;
 use yii\data\Pagination;
+use yii\web\UploadedFile;
+use app\models\Graphic;
 
 class ReplyController extends HomeController
 {	
@@ -124,7 +126,43 @@ class ReplyController extends HomeController
 		}else{
 			return $this->error('删除失败');
 		}
+	}
+	/*
+    * 图文回复
+    * @[author]超
+    */
+	public function actionGraphic()
+	{
+		$request=\yii::$app->request;
+		if(!$request->isPost)
+		{
+			$tem = Yii::$app->db->tablePrefix;
+			$query=new \yii\db\Query();
+			$data['list']=$query->select('*')->from($tem.'account')->all();
+			return $this->render('graphic',$data);
+		}
+		else
+		{
+			//图片
+			$file=UploadedFile::getInstanceByName('s_img');
+			$new_name=time().rand(1,100).$file->name;
+			$pak='public/img/'.$new_name;
+			$file->saveAs($pak,true);
 
+			$data=$request->post();
+			$model=new Graphic();
+			$model->s_title=$data['s_title'];
+			$model->s_num=$data['s_num'];
+			$model->s_url=$data['s_url'];
+			$model->s_desc=$data['s_desc'];
+			$model->s_img=$pak;
+			$model->a_id=$data['a_id'];
+			$a=$model->save();
+			if($a)
+			{
+				echo "<script>alert('提交成功');location.href='?r=reply/graphic'</script>";
+			}
+	   }
 	}
 
 }
