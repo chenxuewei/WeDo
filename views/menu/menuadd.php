@@ -74,12 +74,12 @@ use yii\widgets\ActiveForm;
                    菜单类型：<div style="margin-bottom: 15px" class="row">
                         <div class="col-lg-6">
                             <label>
-                                <input type="radio" name="son_type" value="click" class="form-control">发送消息
+                                <input type="radio" name="son_type" value="click" checked  class="form-control">发送消息
                             </label>
                         </div>
                         <div class="col-lg-6">
                             <label>
-                                <input type="radio" name="son_type" value="view" class="form-control">跳转页面
+                                <input type="radio" name="son_type" value="view"  class="form-control">跳转页面
                             </label>
                         </div>
                     </div>
