@@ -157,6 +157,7 @@ class ReplyController extends HomeController
 			$model->s_desc=$data['s_desc'];
 			$model->s_img=$pak;
 			$model->a_id=$data['a_id'];
+			$model->s_guan=$data['s_guan'];
 			$a=$model->save();
 			if($a)
 			{
