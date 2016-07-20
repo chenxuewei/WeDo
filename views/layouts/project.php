@@ -505,7 +505,7 @@ AppAsset::register($this);
                         <ul class="nav nav-second-level">
                             <li><a href="?r=reply/sreply"><i class="fa fa-columns"></i><span class="submenu-title">文字回复</span></a>
                             </li>
-                            <li><a href="form-basic.html"><i class="fa fa-file-text-o"></i><span class="submenu-title">图文回复</span></a>
+                            <li><a href="?r=reply/graphic"><i class="fa fa-file-text-o"></i><span class="submenu-title">图文回复</span></a>
                             </li>
                             <li><a href="form-components.html"><i class="fa fa-cube"></i><span class="submenu-title">机器人回复</span></a>
                             </li>
