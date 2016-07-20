@@ -1,62 +1,75 @@
-
+<?php
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+?>
 <div id="page-wrapper">
     <!--BEGIN TITLE & BREADCRUMB PAGE-->
     <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
         <div class="page-header pull-left">
-            <div class="page-title">编辑公众号</div>
+            <div class="page-title">公众号编辑</div>
         </div>
-        
-       
-        
+        <ol class="breadcrumb page-breadcrumb">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="?r=index/index">后台</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li><a href="">公众号管理</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">公众号编辑</li>
+        </ol>
+        <div class="btn btn-blue reportrange hide"><i class="fa fa-calendar"></i>&nbsp;<span></span>&nbsp;report&nbsp;<i class="fa fa-angle-down"></i>
+            <input type="hidden" name="datestart" />
+            <input type="hidden" name="endstart" />
+        </div>
+        <div class="clearfix"></div>
     </div>
-    <!--END TITLE & BREADCRUMB PAGE-->
-    <!--BEGIN CONTENT-->
-    <div class="page-content">
-        
-            <h3 class="header-option-page mbxl">编辑公众号</h3>
-
-                        <center>
-                        <form action="?r=administration/up" method="post">
-                            <table>
-                            <input name="_csrf" type="hidden" id="_csrf" value="<?= Yii::$app->request->csrfToken ?>" />
+    <!--添加开始-->
+    <div style="height: 100%">
+        <div class="page-form">
+            <form id="signup-form" action="?r=administration/up" method="post" class="form" >
+                <div class="header-content">
+                    <h1>公众号编辑</h1>
+                </div>
+                <div class="body-content">
+                    <div class="form-group">
+                        <div class="input-icon right"><i class="jstree-icon jstree-themeicon fa fa-send-o fa-fw jstree-themeicon-custom"></i>
+                            <input type="hidden" name="_csrf" value="<?php echo Yii::$app->request->csrfToken;?>" />
                             <input type="hidden" name="aid" value="<?php echo $arr1['aid'] ?>" />
-                                <tr>
-                                    <td>公众号名称:</td>
-                                    <td>
-                                        <input type="text" name="aname" value="<?php echo $arr1['aname'] ?>" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Appid:</td>
-                                    <td>
-                                       <input type="text" name="appid" value="<?php echo $arr1['appid'] ?>" /> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Appsecret：</td>
-                                    <td>
-                                        <input type="text" name="appsecret" value="<?php echo $arr1['appsecret'] ?>" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>内容：</td>
-                                    <td>
-                                        <textarea name="account" ><?php echo $arr1['account'] ?></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    
-                                    <td>
-                                        <input type="submit" value="编辑" />
+                            <input type="text" placeholder="公众号名称" value="<?=$arr1['aname']?>" name="aname" class="form-control">
+                        </div>
+                    </div>
 
-                                    </td>
-                                </tr>
-                            </table>
-                            </form>
-                            </center>
- 
-            
+                    <div class="form-group">
+                        <div class="input-icon right">
+                            <i class="jstree-icon jstree-themeicon fa fa-paperclip jstree-themeicon-custom"></i>
+                            <input type="text" placeholder="Appid"  value="<?=$arr1['appid']?>" name="appid" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-icon right"><i class="jstree-icon jstree-themeicon fa fa-paperclip jstree-themeicon-custom"></i>
+                            <input type="text" placeholder="Appsecret"  value="<?=$arr1['appsecret']?>"  name="appsecret" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-icon right"> 内容：
+                            <textarea name="account" id="editor"><?=$arr1['account']?></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group mbn">
+                        <button type="reset" class="btn btn-warning" ><i class="fa fa-chevron-circle-left"> &nbsp;重置 </i></button>
+
+                        <button type="submit" class="btn btn-info pull-right">提交 &nbsp;
+                            <i class="fa fa-chevron-circle-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <!--END CONTENT-->
+
+    <!--添加结束-->
 </div>
+<script type="text/javascript" charset="utf-8" src="baidu/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="baidu/ueditor.all.min.js"> </script>
+<script type="text/javascript">
+    var ue = UE.getEditor('editor');
+</script>
+

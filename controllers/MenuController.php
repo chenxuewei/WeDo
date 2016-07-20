@@ -39,15 +39,16 @@ class MenuController extends Controller
         }
         $menu=new Menu;
         //print_r($arr);die;
-        $menu->user_id=$arr['user_id'];
-        $menu->menu_name=$arr['menu_name'];
-        $menu->menu_comment=$arr['menu_comment'];
-        $menu->pid=$arr['menu_type'];
-        if(isset($arr['menu_name'])){
-            $menu->son_type=$arr['menu_type'];
-        }else{
-            $menu->son_type='';
-        }
+        $menu->user_id=htmlentities($arr['user_id']);
+        $menu->menu_name=htmlentities($arr['menu_name']);
+        $menu->menu_comment=htmlentities($arr['menu_comment']);
+        $menu->pid=htmlentities($arr['menu_type']);
+        $menu->son_type=htmlentities($arr['son_type']);
+//        if(isset($arr['menu_name'])){
+//            $menu->son_type=$arr['menu_type'];
+//        }else{
+//            $menu->son_type='';
+//        }
         if($menu->save()>0){
            return $this->success(['menu/getmenufrom'],'添加成功');
         }else{
