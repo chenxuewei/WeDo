@@ -128,12 +128,6 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>图文个数:</td>
-                                                <td>
-                                                    <input type="text" name="s_num" />
-                                                </td>
-                                            </tr>
-                                            <tr>
                                                 <td>图片:</td>
                                                 <td>
                                                     <input type="file" name="s_img" />
