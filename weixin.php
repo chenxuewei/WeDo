@@ -40,16 +40,16 @@ class wechatCallbackapiTest
 
       	//extract post data
 		if (!empty($postStr)){
-                /* libxml_disable_entity_loader is to prevent XML eXternal Entity Injection,
-                   the best way is to check the validity of xml by yourself */
-                libxml_disable_entity_loader(true);
-              	$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-                $fromUsername = $postObj->FromUserName;
-                $toUsername = $postObj->ToUserName;
-                $keyword = trim($postObj->Content);
-            	$time = time();             
+            /* libxml_disable_entity_loader is to prevent XML eXternal Entity Injection,
+               the best way is to check the validity of xml by yourself */
+            libxml_disable_entity_loader(true);
+          	$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+            $fromUsername = $postObj->FromUserName;
+            $toUsername = $postObj->ToUserName;
+            $keyword = trim($postObj->Content);
+        	$time = time();             
 	    	if(!empty($keyword))
-            	{
+            {
                 $textTpl = "<xml>
                         <ToUserName><![CDATA[%s]]></ToUserName>
                         <FromUserName><![CDATA[%s]]></FromUserName>
@@ -106,7 +106,7 @@ class wechatCallbackapiTest
 		}
 	}
 
-    // 获取accesstoken
+    // èŽ·å–accesstoken
     private function getAccessToken(){
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".APPID."&secret=".APPSECRET;
         $json = file_get_contents($url);
@@ -115,30 +115,30 @@ class wechatCallbackapiTest
         return $access_token;
     }
 
-    //CURL模拟POST提交
+    //CURLæ¨¡æ‹ŸPOSTæäº¤
     public function curlPost($url,$data,$method){
-        $ch = curl_init();   //1.初始�?
-        curl_setopt($ch, CURLOPT_URL, $url); //2.请求地址
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);//3.请求方式
-        //4.参数如下
+        $ch = curl_init();   //1.åˆå§‹åŒ?
+        curl_setopt($ch, CURLOPT_URL, $url); //2.è¯·æ±‚åœ°å€
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);//3.è¯·æ±‚æ–¹å¼
+        //4.å‚æ•°å¦‚ä¸‹
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);//https
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');//模拟浏览�?
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');//æ¨¡æ‹Ÿæµè§ˆå™?
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER,array('Accept-Encoding: gzip, deflate'));//gzip解压内容
+        curl_setopt($ch, CURLOPT_HTTPHEADER,array('Accept-Encoding: gzip, deflate'));//gzipè§£åŽ‹å†…å®¹
         curl_setopt($ch, CURLOPT_ENCODING, 'gzip,deflate');
           
-        if($method=="POST"){//5.post方式的时候添加数�?
+        if($method=="POST"){//5.postæ–¹å¼çš„æ—¶å€™æ·»åŠ æ•°æ?
           curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $tmpInfo = curl_exec($ch);//6.执行
+        $tmpInfo = curl_exec($ch);//6.æ‰§è¡Œ
 
-        if (curl_errno($ch)) {//7.如果出错
+        if (curl_errno($ch)) {//7.å¦‚æžœå‡ºé”™
           return curl_error($ch);
         }
-        curl_close($ch);//8.关闭
+        curl_close($ch);//8.å…³é—­
         return $tmpInfo;
     }
 }
