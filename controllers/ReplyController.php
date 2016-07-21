@@ -152,7 +152,6 @@ class ReplyController extends HomeController
 			$data=$request->post();
 			$model=new Graphic();
 			$model->s_title=$data['s_title'];
-			$model->s_num=$data['s_num'];
 			$model->s_url=$data['s_url'];
 			$model->s_desc=$data['s_desc'];
 			$model->s_img=$pak;
