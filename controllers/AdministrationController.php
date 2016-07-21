@@ -17,7 +17,7 @@ class AdministrationController extends HomeController
 		return $this->render('glist');
 	}
 
-	//公众号添�?
+	//公众号添�?
 	public function actionAdd(){
 			 $atok=$this->actionRands(5);
              $url=substr('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],0,strpos('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'we'))."/weixin.php?str=".$atok;
@@ -47,6 +47,7 @@ class AdministrationController extends HomeController
 			 $account=new Account();
 			 $account->attributes=$arr;
 			 $res=$account->insert();
+
 		if($res){
 			return $this->success('administration/sel');
 			
@@ -56,21 +57,22 @@ class AdministrationController extends HomeController
 
 	}
 
-	//查询公众�?
+	//查询公众�?
 	public function actionSel(){
 		$session = \Yii::$app->session;
         $session->open();
         $uid=$session->get("uid");
+        // echo $uid;;die;
 		// $connection=\Yii::$app->db;
 		// $tem = $connection->tablePrefix;
         $row = Account::find()->where("uid='$uid'")->asArray()->all();
-        //print_r($row);die;
+        // print_r($row);die;
 		//$sql="select * from ".$tem."account join wd_user on ".$tem."account.uid=".$tem."user.uid where ".$tem."account.uid='$uid'";
 		//$row=$connection->createCommand($sql)->queryAll();
 		return $this->render('show',['arr'=>$row]);
 	}
 
-	//查询公众号属�?
+	//查询公众号属�?
 	public function actionAttribute(){
 		$request=\yii::$app->request;
 		$aid=$request->get('aid');
@@ -86,7 +88,7 @@ class AdministrationController extends HomeController
 	}
 
 
-	//公众号删�?
+	//公众号删�?
 	function actionDel(){
 		$account=new Account();
 		$request=\yii::$app->request;
@@ -107,7 +109,7 @@ class AdministrationController extends HomeController
 
 	}
 
-	//公众号编�?
+	//公众号编�?
 	public function actionSave(){
 		$request=\yii::$app->request;
 		$aid=$request->get('aid');

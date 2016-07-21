@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : 陈学卫
 Source Server Version : 50540
 Source Host           : 192.168.1.142:3306
-Source Database       : wedo
+Source Database       : wedoaaa
 
 Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-07-19 13:55:37
+Date: 2016-07-21 19:30:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,10 +33,29 @@ CREATE TABLE `account` (
   PRIMARY KEY (`aid`),
   KEY `FK_Relationship_4` (`uid`),
   KEY `FK_Relationship_5` (`mid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of account
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for graphic
+-- ----------------------------
+DROP TABLE IF EXISTS `graphic`;
+CREATE TABLE `graphic` (
+  `s_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_title` char(15) DEFAULT NULL,
+  `s_img` varchar(50) DEFAULT NULL,
+  `s_url` varchar(35) DEFAULT NULL,
+  `s_guan` varchar(50) DEFAULT NULL,
+  `s_desc` varchar(60) DEFAULT NULL,
+  `a_id` int(6) DEFAULT NULL,
+  PRIMARY KEY (`s_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of graphic
 -- ----------------------------
 
 -- ----------------------------
@@ -66,10 +85,8 @@ DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `mid` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
-  `son_type` varchar(1) DEFAULT NULL,
-  `menu_name` varchar(50) DEFAULT NULL,
-  `pid` int(11) DEFAULT NULL,
-  `menu_comment` varchar(255) DEFAULT NULL,
+  `content` varchar(1) DEFAULT NULL,
+  `states` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`mid`),
   KEY `FK_Relationship_6` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -119,7 +136,7 @@ CREATE TABLE `user` (
   `uname` varchar(30) NOT NULL,
   `upwd` varchar(50) NOT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user

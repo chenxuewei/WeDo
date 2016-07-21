@@ -5,10 +5,11 @@
 
 //define your token
 $str=$_GET['str'];
-// echo $str;die;
+echo $str;die;
 include_once("./web/assets/abc.php");
 $pdo ->query("set names utf8");
 $rs = $pdo->query("SELECT * FROM wd_account where atok ='$str'")->fetch(PDO::FETCH_ASSOC);
+print_r($rs);die;
 $token = $rs['atoken'];
 $appid = $rs['appid'];
 $appsecret = $rs['appsecret'];
@@ -22,70 +23,94 @@ $wechatObj->valid($pdo);
 
 class wechatCallbackapiTest
 {
-	public function valid($pdo)
+    public function valid($pdo)
     {
         $echoStr = $_GET["echostr"];
-
         //valid signature , option
         if($this->checkSignature()){
-        	echo $echoStr;
+            echo $echoStr;
             $this->responseMsg($pdo);
-        	exit;
+            exit;
         }
     }
 
     public function responseMsg($pdo)
     {
-		//get post data, May be due to the different environments
-		$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+        //get post data, May be due to the different environments
+        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
 
-      	//extract post data
-		if (!empty($postStr)){
+            //extract post data
+        if (!empty($postStr)){
                 /* libxml_disable_entity_loader is to prevent XML eXternal Entity Injection,
                    the best way is to check the validity of xml by yourself */
                 libxml_disable_entity_loader(true);
-              	$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+                $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $fromUsername = $postObj->FromUserName;
                 $toUsername = $postObj->ToUserName;
                 $keyword = trim($postObj->Content);
                 $time = time();
+        $msgType = "text";
                 $textTpl = "<xml>
-							<ToUserName><![CDATA[%s]]></ToUserName>
-							<FromUserName><![CDATA[%s]]></FromUserName>
-							<CreateTime>%s</CreateTime>
-							<MsgType><![CDATA[%s]]></MsgType>
-							<Content><![CDATA[%s]]></Content>
-							<FuncFlag>0</FuncFlag>
-							</xml>";             
-				if(!empty($keyword))
+                <ToUserName><![CDATA[%s]]></ToUserName>
+                <FromUserName><![CDATA[%s]]></FromUserName>
+                <CreateTime>%s</CreateTime>
+                <MsgType><![CDATA[%s]]></MsgType>
+                <Content><![CDATA[%s]]></Content>
+                <FuncFlag>0</FuncFlag>
+               </xml>";             
+        if(!empty($keyword))
                 {
                     $arr=$pdo->query("select trcontent from wd_reply inner join wd_text_reply on wd_reply.reid = wd_text_reply.reid where rekeyword='$keyword' and aid= ".ID)->fetch();
-              		$msgType = "text";
+                    $photo = $pdo->query("select * from wd_graphic where s_guan='$keyword' and a_id=".ID)->fetch(PDO::FETCH_ASSOC);
                     if($arr){
                         $contentStr = $arr['trcontent'];
+                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                        echo $resultStr;
+                    }else if($photo){
+                        $textTpl = "<xml>
+                          <ToUserName><![CDATA[%s]]></ToUserName>
+                          <FromUserName><![CDATA[%s]]></FromUserName>
+                          <CreateTime>%s</CreateTime>
+                          <MsgType><![CDATA[%s]]></MsgType>
+                          <ArticleCount>1</ArticleCount>
+                          <Articles>
+                          <item>
+                          <Title><![CDATA[%s]]></Title>
+                          <Description><![CDATA[%s]]></Description>
+                          <PicUrl><![CDATA[%s]]></PicUrl>
+                          <Url><![CDATA[%s]]></Url>
+                          </item>
+                          </Articles>
+                          </xml>";
+                        $msgType = "news";
+                        $Picurl = "http://101.200.161.30/WeDo/web/".$photo['s_img'];
+                        $title = $photo['s_title'];
+                        $description = $photo['s_desc'];
+                        $url = $photo['s_url'];
+                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType,$title,$description,$Picurl,$url );
+                        echo $resultStr; 
                     }else{
                         $url="http://www.tuling123.com/openapi/api?key=81a7161f18e492a769d2dadb6c0ae363&info=".$keyword;
                         $html=file_get_contents($url);
                         $arr=json_decode($html,true);
                         $contentStr = $arr['text'];
-                    }                	
-                	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                	echo $resultStr;
+                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                        echo $resultStr;
+                    }                   
+                   
                 }else{
-                	$msgType = "text";
                     $contentStr = "感谢您的关注";
                     $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                     echo $resultStr;
                 }
-
         }else {
-        	echo "";
-        	exit;
+            echo "";
+            exit;
         }
     }
-		
-	private function checkSignature()
-	{
+        
+    private function checkSignature()
+    {
         // you must define TOKEN by yourself
         if (!defined("TOKEN")) {
             throw new Exception('TOKEN is not defined!');
@@ -94,20 +119,20 @@ class wechatCallbackapiTest
         $signature = $_GET["signature"];
         $timestamp = $_GET["timestamp"];
         $nonce = $_GET["nonce"];
-        		
-		$token = TOKEN;
-		$tmpArr = array($token, $timestamp, $nonce);
+                
+        $token = TOKEN;
+        $tmpArr = array($token, $timestamp, $nonce);
         // use SORT_STRING rule
-		sort($tmpArr, SORT_STRING);
-		$tmpStr = implode( $tmpArr );
-		$tmpStr = sha1( $tmpStr );
-		
-		if( $tmpStr == $signature ){
-			return true;
-		}else{
-			return false;
-		}
-	}
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode( $tmpArr );
+        $tmpStr = sha1( $tmpStr );
+        
+        if( $tmpStr == $signature ){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     // 获取accesstoken
     private function getAccessToken(){

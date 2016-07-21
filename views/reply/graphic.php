@@ -80,7 +80,7 @@
             <!--BEGIN TITLE & BREADCRUMB PAGE-->
             <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
                 <div class="page-header pull-left">
-                    <div class="page-title">Form Validation</div>
+                    <div class="page-title">图文消息回复</div>
                 </div>
                 <ol class="breadcrumb page-breadcrumb">
                     <li><i class="fa fa-home"></i>&nbsp;<a href="?r=index/index">后台</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
@@ -128,21 +128,15 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>图文个数:</td>
+                                                <td>关键字:</td>
                                                 <td>
-                                                    <input type="text" name="s_num" />
+                                                 <input type="text" name="s_guan">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>图片:</td>
                                                 <td>
                                                     <input type="file" name="s_img" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>关键字:</td>
-                                                <td>
-                                                    <input type="text" name="s_guan" />
                                                 </td>
                                             </tr>
                                             <tr>
