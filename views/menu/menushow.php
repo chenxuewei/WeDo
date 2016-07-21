@@ -2,11 +2,11 @@
     <!--BEGIN TITLE & BREADCRUMB PAGE-->
     <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
         <div class="page-header pull-left">
-            <div class="page-title"><?=$user['aname']?>菜单展示</div>
+            <div class="page-title">获取菜单配置</div>
         </div>
         <ol class="breadcrumb page-breadcrumb">
-            <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-            <li><a href="#">Frontend</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">后台</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li><a href="#">自定义菜单展示</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
             <li class="active"><?=$user['aname']?>菜单展示</li>
         </ol>
         <div class="btn btn-blue reportrange hide"><i class="fa fa-calendar"></i>&nbsp;<span></span>&nbsp;report&nbsp;<i class="fa fa-angle-down"></i>
@@ -37,6 +37,9 @@
                     <td align="center"><span class="label label-sm label-warning"><?php if(isset($v['url'])){echo $v['url'];}else{echo $v['key'];} ?>   </span></td>
                     <td align="center"><span class="label label-sm label-danger"><?php if($v['mine']=='' ){echo '主菜单';}else{echo $v['mine'];}?></span></td>
                 </tr>
+            <?php } ?>
+            <?php if($count>1){?>
+            <tr><th colspan="4" style="text-align: center"><a href="?r=menu/lastmenu">菜单回退到上个版本</a></th></tr>
             <?php } ?>
             </tbody>
             </thead>
