@@ -5,7 +5,6 @@
 
 //define your token
 $str=$_GET['str'];
-// echo $str;die;
 include_once("./web/assets/abc.php");
 $pdo ->query("set names utf8");
 $rs = $pdo->query("SELECT * FROM wd_account where atok ='$str'")->fetch(PDO::FETCH_ASSOC);
@@ -47,15 +46,11 @@ class wechatCallbackapiTest
               	$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $fromUsername = $postObj->FromUserName;
                 $toUsername = $postObj->ToUserName;
-            if($postObj->Event == "CLICK"){
-                $access_token = $this->getAccessToken();
-                $photo = $pdo->query("select * from wd_graphic where a_id =".ID)->fetch(PDO::FETCH_ASSOC);
-                $photoUrl = 'web/'.$photo['s_img']
-                $data = array( "file"=>"@$phtotoUrl");
-                $json = $this->curlPost($url,$data,"POST");
-                $arr = json_decode($json,true);    
-                $time = time();
-                $textTpl = "<xml>
+             if($postObj->Event == "CLICK"){
+            $access_token = $this->getAccessToken();
+            $photo = $pdo->query("select * from wd_graphic where a_id=".ID)->fetch(PDO::FETCH_ASSOC);    
+             $time = time();
+             $textTpl = "<xml>
                           <ToUserName><![CDATA[%s]]></ToUserName>
                           <FromUserName><![CDATA[%s]]></FromUserName>
                           <CreateTime>%s</CreateTime>
@@ -70,53 +65,52 @@ class wechatCallbackapiTest
                           </item>
                           </Articles>
                           </xml>";
-                 $msgType = "news";
-                 // $Picurl = $arr['media_id'];
-                 $Picurl = "101.200.161.30/WeDo/".$photoUrl;
+             $msgType = "news";
+             $Picurl = "http://http://101.200.161.30/WeDo/web/".$photo['s_img'];
 
-                 $title = $photo['s_title'];
-                 $description = $photo['s_desc'];
-                 $url = $photo['s_url'];
-                  
-                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType,$title,$description,$Picurl,$url );
-                echo $resultStr; 
-            }else{
-                $keyword = trim($postObj->Content);
-                $time = time();             
-    			if(!empty($keyword))
-                {
-                    $textTpl = "<xml>
-                            <ToUserName><![CDATA[%s]]></ToUserName>
-                            <FromUserName><![CDATA[%s]]></FromUserName>
-                            <CreateTime>%s</CreateTime>
-                            <MsgType><![CDATA[%s]]></MsgType>
-                            <Content><![CDATA[%s]]></Content>
-                            <FuncFlag>0</FuncFlag>
-                            </xml>";
-                    $arr=$pdo->query("select trcontent from wd_reply inner join wd_text_reply on wd_reply.reid = wd_text_reply.reid where rekeyword='$keyword' and aid= ".ID)->fetch();
-              		$msgType = "text";
-                    if($arr){
-                        $contentStr = $arr['trcontent'];
-                    }else{
-                        $url="http://www.tuling123.com/openapi/api?key=81a7161f18e492a769d2dadb6c0ae363&info=".$keyword;
-                        $html=file_get_contents($url);
-                        $arr=json_decode($html,true);
-                        $contentStr = $arr['text'];
-                    }                	
-                	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                	echo $resultStr;
+             $title = $photo['s_title'];
+             $description  = $photo['s_desc'];
+             $url = $photo['s_url'];
+              
+            $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType,$title,$description,$Picurl,$url );
+            echo $resultStr; 
+        }else{
+            $keyword = trim($postObj->Content);
+            $time = time();             
+			if(!empty($keyword))
+            {
+                $textTpl = "<xml>
+                        <ToUserName><![CDATA[%s]]></ToUserName>
+                        <FromUserName><![CDATA[%s]]></FromUserName>
+                        <CreateTime>%s</CreateTime>
+                        <MsgType><![CDATA[%s]]></MsgType>
+                        <Content><![CDATA[%s]]></Content>
+                        <FuncFlag>0</FuncFlag>
+                        </xml>";
+                $arr=$pdo->query("select trcontent from wd_reply inner join wd_text_reply on wd_reply.reid = wd_text_reply.reid where rekeyword='$keyword' and aid= ".ID)->fetch();
+          		$msgType = "text";
+                if($arr){
+                    $contentStr = $arr['trcontent'];
                 }else{
-                	$msgType = "text";
-                    $contentStr = "感谢您的关注";
-                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                    echo $resultStr;
-                }
+                    $url="http://www.tuling123.com/openapi/api?key=81a7161f18e492a769d2dadb6c0ae363&info=".$keyword;
+                    $html=file_get_contents($url);
+                    $arr=json_decode($html,true);
+                    $contentStr = $arr['text'];
+                }                	
+            	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+            	echo $resultStr;
+            }else{
+            	$msgType = "text";
+                $contentStr = "感谢您的关注";
+                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                echo $resultStr;
+            }
             }
         }else {
         	echo "";
         	exit;
       }
-		
+	}	
 	private function checkSignature()
 	{
         // you must define TOKEN by yourself
