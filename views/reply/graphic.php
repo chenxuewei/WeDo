@@ -128,6 +128,12 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>关键字:</td>
+                                                <td>
+                                                 <input type="text" name="s_guan">
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>图片:</td>
                                                 <td>
                                                     <input type="file" name="s_img" />
