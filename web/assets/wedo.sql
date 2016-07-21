@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-07-19 13:55:37
+Date: 2016-07-21 09:50:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,11 +33,32 @@ CREATE TABLE `account` (
   PRIMARY KEY (`aid`),
   KEY `FK_Relationship_4` (`uid`),
   KEY `FK_Relationship_5` (`mid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of account
 -- ----------------------------
+INSERT INTO `account` VALUES ('1', null, '1', '123', '213123', '12321123', '123', 'Xa71e49f6bda0c9b7642f39f1aa1f567', 'SB6cO', ' http://localhost/9yue/WeDo/weixin.php?str=SB6cO');
+
+-- ----------------------------
+-- Table structure for graphic
+-- ----------------------------
+DROP TABLE IF EXISTS `graphic`;
+CREATE TABLE `graphic` (
+  `s_id` int(11) NOT NULL AUTO_INCREMENT,
+  `s_title` char(15) DEFAULT NULL,
+  `s_img` varchar(50) DEFAULT NULL,
+  `s_url` varchar(35) DEFAULT NULL,
+  `s_desc` varchar(60) DEFAULT NULL,
+  `a_id` int(6) DEFAULT NULL,
+  PRIMARY KEY (`s_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of graphic
+-- ----------------------------
+INSERT INTO `graphic` VALUES ('1', 'sfsd', 'public/img/14690016735920.jpg', 'www.baidu.cm', 'sdfsdgdsgdfg', '1');
+INSERT INTO `graphic` VALUES ('2', '莫名其妙', 'public/img/146906277161318690.jpg', 'www.baidu.cm', '这是一首简单的小情歌', '1');
 
 -- ----------------------------
 -- Table structure for graphic_reply
@@ -89,11 +110,16 @@ CREATE TABLE `reply` (
   `rekeyword` varchar(50) DEFAULT NULL,
   `retype` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`reid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of reply
 -- ----------------------------
+INSERT INTO `reply` VALUES ('1', '1', '123', '321', null);
+INSERT INTO `reply` VALUES ('2', '1', '反对韩国', '的回复', null);
+INSERT INTO `reply` VALUES ('3', '1', '如果', '分布式的', null);
+INSERT INTO `reply` VALUES ('4', '1', '如果', '发几个', null);
+INSERT INTO `reply` VALUES ('5', '1', '如果', '发的红包的', null);
 
 -- ----------------------------
 -- Table structure for text_reply
@@ -104,11 +130,16 @@ CREATE TABLE `text_reply` (
   `reid` int(11) DEFAULT NULL,
   `trcontent` varchar(255) NOT NULL,
   PRIMARY KEY (`trid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of text_reply
 -- ----------------------------
+INSERT INTO `text_reply` VALUES ('1', '1', '21312');
+INSERT INTO `text_reply` VALUES ('2', '2', '的复合弓');
+INSERT INTO `text_reply` VALUES ('3', '3', '上辅导班');
+INSERT INTO `text_reply` VALUES ('4', '4', '人的回复不过');
+INSERT INTO `text_reply` VALUES ('5', '5', '多个省份');
 
 -- ----------------------------
 -- Table structure for user
@@ -119,8 +150,9 @@ CREATE TABLE `user` (
   `uname` varchar(30) NOT NULL,
   `upwd` varchar(50) NOT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3');

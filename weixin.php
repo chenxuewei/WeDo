@@ -47,18 +47,52 @@ class wechatCallbackapiTest
               	$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $fromUsername = $postObj->FromUserName;
                 $toUsername = $postObj->ToUserName;
-                $keyword = trim($postObj->Content);
+            if($postObj->Event == "CLICK"){
+                $access_token = $this->getAccessToken();
+                $photo = $pdo->query("select * from wd_graphic where a_id =".ID)->fetch(PDO::FETCH_ASSOC);
+                $photoUrl = 'web/'.$photo['s_img']
+                $data = array( "file"=>"@$phtotoUrl");
+                $json = $this->curlPost($url,$data,"POST");
+                $arr = json_decode($json,true);    
                 $time = time();
                 $textTpl = "<xml>
-							<ToUserName><![CDATA[%s]]></ToUserName>
-							<FromUserName><![CDATA[%s]]></FromUserName>
-							<CreateTime>%s</CreateTime>
-							<MsgType><![CDATA[%s]]></MsgType>
-							<Content><![CDATA[%s]]></Content>
-							<FuncFlag>0</FuncFlag>
-							</xml>";             
-				if(!empty($keyword))
+                          <ToUserName><![CDATA[%s]]></ToUserName>
+                          <FromUserName><![CDATA[%s]]></FromUserName>
+                          <CreateTime>%s</CreateTime>
+                          <MsgType><![CDATA[%s]]></MsgType>
+                          <ArticleCount>1</ArticleCount>
+                          <Articles>
+                          <item>
+                          <Title><![CDATA[%s]]></Title>
+                          <Description><![CDATA[%s]]></Description>
+                          <PicUrl><![CDATA[%s]]></PicUrl>
+                          <Url><![CDATA[%s]]></Url>
+                          </item>
+                          </Articles>
+                          </xml>";
+                 $msgType = "news";
+                 // $Picurl = $arr['media_id'];
+                 $Picurl = "101.200.161.30/WeDo/".$photoUrl;
+
+                 $title = $photo['s_title'];
+                 $description = $photo['s_desc'];
+                 $url = $photo['s_url'];
+                  
+                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType,$title,$description,$Picurl,$url );
+                echo $resultStr; 
+            }else{
+                $keyword = trim($postObj->Content);
+                $time = time();             
+    			if(!empty($keyword))
                 {
+                    $textTpl = "<xml>
+                            <ToUserName><![CDATA[%s]]></ToUserName>
+                            <FromUserName><![CDATA[%s]]></FromUserName>
+                            <CreateTime>%s</CreateTime>
+                            <MsgType><![CDATA[%s]]></MsgType>
+                            <Content><![CDATA[%s]]></Content>
+                            <FuncFlag>0</FuncFlag>
+                            </xml>";
                     $arr=$pdo->query("select trcontent from wd_reply inner join wd_text_reply on wd_reply.reid = wd_text_reply.reid where rekeyword='$keyword' and aid= ".ID)->fetch();
               		$msgType = "text";
                     if($arr){
@@ -77,12 +111,11 @@ class wechatCallbackapiTest
                     $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                     echo $resultStr;
                 }
-
+            }
         }else {
         	echo "";
         	exit;
-        }
-    }
+      }
 		
 	private function checkSignature()
 	{
@@ -129,8 +162,8 @@ class wechatCallbackapiTest
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');//模拟浏览器
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
-              curl_setopt($ch, CURLOPT_HTTPHEADER,array('Accept-Encoding: gzip, deflate'));//gzip解压内容
-              curl_setopt($ch, CURLOPT_ENCODING, 'gzip,deflate');
+        curl_setopt($ch, CURLOPT_HTTPHEADER,array('Accept-Encoding: gzip, deflate'));//gzip解压内容
+        curl_setopt($ch, CURLOPT_ENCODING, 'gzip,deflate');
           
         if($method=="POST"){//5.post方式的时候添加数据
           curl_setopt($ch, CURLOPT_POSTFIELDS, $data);

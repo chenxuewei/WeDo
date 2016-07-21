@@ -61,10 +61,11 @@ class AdministrationController extends HomeController
 		$session = \Yii::$app->session;
         $session->open();
         $uid=$session->get("uid");
+        // echo $uid;;die;
 		// $connection=\Yii::$app->db;
 		// $tem = $connection->tablePrefix;
         $row = Account::find()->where("uid='$uid'")->asArray()->all();
-        //print_r($row);die;
+        // print_r($row);die;
 		//$sql="select * from ".$tem."account join wd_user on ".$tem."account.uid=".$tem."user.uid where ".$tem."account.uid='$uid'";
 		//$row=$connection->createCommand($sql)->queryAll();
 		return $this->render('show',['arr'=>$row]);
