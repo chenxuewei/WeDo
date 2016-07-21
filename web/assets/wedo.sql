@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-07-21 18:53:06
+Date: 2016-07-21 19:30:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,7 +38,6 @@ CREATE TABLE `account` (
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account` VALUES ('1', null, '1', '大超', '阿达', 'wx4ba75e6b561a4c30', 'ba448d430d3ab2344b6281f791bbfe38', 'la182a16e66268d7ce85fcfe945df787', 'gc5RY', ' http://www.chao2.com/php9shizhan/WeDo/weixin.php?str=gc5RY');
 
 -- ----------------------------
 -- Table structure for graphic
@@ -86,10 +85,8 @@ DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `mid` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
-  `son_type` varchar(1) DEFAULT NULL,
-  `menu_name` varchar(50) DEFAULT NULL,
-  `pid` int(11) DEFAULT NULL,
-  `menu_comment` varchar(255) DEFAULT NULL,
+  `content` varchar(1) DEFAULT NULL,
+  `states` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`mid`),
   KEY `FK_Relationship_6` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -144,4 +141,3 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3');
