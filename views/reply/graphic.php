@@ -134,6 +134,12 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>关键字:</td>
+                                                <td>
+                                                    <input type="text" name="s_guan" />
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>图片URL：</td>
                                                 <td>
                                                     <input type="text" name="s_url" value="www.baidu.cm">

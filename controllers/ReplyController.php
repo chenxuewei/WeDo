@@ -148,7 +148,6 @@ class ReplyController extends HomeController
 			$new_name=time().rand(1,100).$file->name;
 			$pak='public/img/'.$new_name;
 			$file->saveAs($pak,true);
-
 			$data=$request->post();
 			$model=new Graphic();
 			$model->s_title=$data['s_title'];
@@ -156,6 +155,7 @@ class ReplyController extends HomeController
 			$model->s_desc=$data['s_desc'];
 			$model->s_img=$pak;
 			$model->a_id=$data['a_id'];
+			$model->s_guan=$data['s_guan'];
 			$a=$model->save();
 			if($a)
 			{
