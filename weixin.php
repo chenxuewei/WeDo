@@ -46,39 +46,10 @@ class wechatCallbackapiTest
               	$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $fromUsername = $postObj->FromUserName;
                 $toUsername = $postObj->ToUserName;
-             if($postObj->Event == "CLICK"){
-            $access_token = $this->getAccessToken();
-            $photo = $pdo->query("select * from wd_graphic where a_id=".ID)->fetch(PDO::FETCH_ASSOC);    
-             $time = time();
-             $textTpl = "<xml>
-                          <ToUserName><![CDATA[%s]]></ToUserName>
-                          <FromUserName><![CDATA[%s]]></FromUserName>
-                          <CreateTime>%s</CreateTime>
-                          <MsgType><![CDATA[%s]]></MsgType>
-                          <ArticleCount>1</ArticleCount>
-                          <Articles>
-                          <item>
-                          <Title><![CDATA[%s]]></Title>
-                          <Description><![CDATA[%s]]></Description>
-                          <PicUrl><![CDATA[%s]]></PicUrl>
-                          <Url><![CDATA[%s]]></Url>
-                          </item>
-                          </Articles>
-                          </xml>";
-             $msgType = "news";
-             $Picurl = "http://http://101.200.161.30/WeDo/web/".$photo['s_img'];
-
-             $title = $photo['s_title'];
-             $description  = $photo['s_desc'];
-             $url = $photo['s_url'];
-              
-            $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType,$title,$description,$Picurl,$url );
-            echo $resultStr; 
-        }else{
-            $keyword = trim($postObj->Content);
-            $time = time();             
-			if(!empty($keyword))
-            {
+                $keyword = trim($postObj->Content);
+            	$time = time();             
+	    	if(!empty($keyword))
+            	{
                 $textTpl = "<xml>
                         <ToUserName><![CDATA[%s]]></ToUserName>
                         <FromUserName><![CDATA[%s]]></FromUserName>
@@ -103,13 +74,12 @@ class wechatCallbackapiTest
             	$msgType = "text";
                 $contentStr = "感谢您的关注";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                echo $resultStr;
-            }
+                echo $resultStr;          
             }
         }else {
         	echo "";
         	exit;
-      }
+      	}
 	}	
 	private function checkSignature()
 	{
@@ -147,19 +117,19 @@ class wechatCallbackapiTest
 
     //CURL模拟POST提交
     public function curlPost($url,$data,$method){
-        $ch = curl_init();   //1.初始化
+        $ch = curl_init();   //1.初始�?
         curl_setopt($ch, CURLOPT_URL, $url); //2.请求地址
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);//3.请求方式
         //4.参数如下
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);//https
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');//模拟浏览器
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');//模拟浏览�?
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER,array('Accept-Encoding: gzip, deflate'));//gzip解压内容
         curl_setopt($ch, CURLOPT_ENCODING, 'gzip,deflate');
           
-        if($method=="POST"){//5.post方式的时候添加数据
+        if($method=="POST"){//5.post方式的时候添加数�?
           curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
