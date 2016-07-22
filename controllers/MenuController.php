@@ -23,9 +23,9 @@ class MenuController extends Controller
         $session = Yii::$app->session;
         $id = $session->get('aid');
         if(!$id){
-            $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');
+           return $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');
         }
-        $user=Account::find()->where('uid='.$id)->asArray()->one();
+        $user=Account::find()->where('aid='.$id)->asArray()->one();
         $count=Menu::find()->where('aid='.$id)->count();
         if($count>0){
             $arr=Menu::find()->where('aid='.$id)->orderBy('states desc')->asArray()->one();
