@@ -5,5 +5,5 @@
                     'username' => 'root',
                     'password' => 'root',
                     'charset' => 'utf8',
-                    'tablePrefix' => 'we_',   //加入前缀名称
+                    'tablePrefix' => 'wd_',   //加入前缀名称
                 ];
