@@ -521,7 +521,7 @@ AppAsset::register($this);
                             </li>
                             <li><a href="table-action.html"><i class="fa fa-tencent-weibo"></i><span class="submenu-title">个性化菜单</span></a>
                             </li>
-                            <li><a href="?r=menu/getmenufrom"><i class="fa fa-filter"></i><span class="submenu-title">获取菜单配置</span></a>
+                            <li><a href="?r=menu/getmenu"><i class="fa fa-filter"></i><span class="submenu-title">获取菜单配置</span></a>
                             </li>
                         </ul>
                     </li>

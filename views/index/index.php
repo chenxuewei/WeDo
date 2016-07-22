@@ -80,7 +80,8 @@
                 </div>
                 <div class="row mbl">
                     <div id="div3" width="450" height="500">
-                        <span style="font-size: 14px;">选择公众号:</span><select onchange="fun()" id="ss">
+                        <span style="font-size: 14px;">选择公众号:</span><select onchange="fun()" class="form-control" id="ss">
+                            <option value="">请选择公众号</option>
                             <?php foreach($list as $value) { ?>
                                 <option value="<?php echo $value['aid']?>"><?php echo $value['aname']?></option>
                             <?php      }?>
