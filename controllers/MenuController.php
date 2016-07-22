@@ -23,9 +23,9 @@ class MenuController extends Controller
         $session = Yii::$app->session;
         $id = $session->get('aid');
         if(!$id){
-            $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');
+            return     $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');die;
         }
-        $user=Account::find()->where('uid='.$id)->asArray()->one();
+        $user=Account::find()->where('aid='.$id)->asArray()->one();
         $count=Menu::find()->where('aid='.$id)->count();
         if($count>0){
             $arr=Menu::find()->where('aid='.$id)->orderBy('states desc')->asArray()->one();
@@ -70,7 +70,7 @@ class MenuController extends Controller
         $session = Yii::$app->session;
         $id = $session->get('aid');
         if(!$id){
-            $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');
+         return   $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');die;
         }
         $user=Account::find()->where('aid='.$id)->asArray()->one();
 
@@ -103,7 +103,7 @@ class MenuController extends Controller
         $session = Yii::$app->session;
         $id = $session->get('aid');
         if(!$id){
-            $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');
+         return   $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');die;
         }
         //查看是否存在上一个版本
         $count=Menu::find()->where('aid='.$id)->count();
@@ -130,7 +130,7 @@ class MenuController extends Controller
             $re=Menu::deleteAll('aid = :aid AND states = :states', [':aid' => $id, ':states' => $arr['states']]);
 
             if($re){
-                return $this->success(['menu/getmenu'],'菜单设置成功');
+                return $this->success(['menu/getmenu'],'菜单设置成功');die;
             }
         }else{
             return $this->success(['menu/getmenu'],'添加失败');
@@ -153,7 +153,7 @@ class MenuController extends Controller
         $session = Yii::$app->session;
         $id = $session->get('aid');
         if(!$id){
-            $this->success(['index/index'],'还没有选取公众号，请选择要操作的公众号');
+            return    $this->success(['index/index'],'还没有选取公众号，请选择要操作的公众号');die;
         }
       //获取用户的信息
         $user=Account::find()->where('uid='.$id)->asArray()->one();
@@ -165,7 +165,7 @@ class MenuController extends Controller
             $arr=Menu::find()->where('aid='.$id)->orderBy('states desc')->asArray()->one();
             $arr=json_decode($arr['content'],true);
         }else{
-           return $this->success(['menu/menuadd'],'菜单还没有配置，去配置');
+           return $this->success(['menu/menuadd'],'菜单还没有配置，去配置');die;
         }
 //       print_r($arr);die;
         //处理数据取得想要的数组

@@ -4,15 +4,8 @@ namespace app\models;
 
 use yii\db\ActiveRecord;
 
-class TextReply extends ActiveRecord
+class Text_reply extends ActiveRecord
 {
-/**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'wd_text_reply';
-    }
 
     /**
      * @inheritdoc

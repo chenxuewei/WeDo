@@ -1,5 +1,8 @@
 
-            <!--BEGIN PAGE WRAPPER-->
+            <?php
+            use yii\helpers\Html;
+            use yii\widgets\ActiveForm;
+            ?>
             <div id="page-wrapper">
                 <!--BEGIN TITLE & BREADCRUMB PAGE-->
                 <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
@@ -17,73 +20,56 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <!--END TITLE & BREADCRUMB PAGE-->
-                <!--BEGIN CONTENT-->
-                <center>
-                <div class="page-content">
-                    <div class="row">
-
-                        <div class="col-lg-6">
-
-                            <div class="portlet box portlet-blue">
-                                <div class="portlet-header">
-                                    <div class="caption">Sign Up Form</div>
-                                    <div class="tools"><i class="fa fa-chevron-up"></i><i data-toggle="modal" data-target="#modal-config" class="fa fa-cog"></i><i class="fa fa-refresh"></i><i class="fa fa-times"></i>
+                <!--添加开始-->
+                <div style="height: 100%">
+                    <div class="page-form">
+                        <form id="signup-form" action="?r=reply/add" method="post" class="form" >
+                            <div class="header-content">
+                                <h1>添加规则</h1>
+                            </div>
+                            <div class="body-content">
+                                <div class="form-group">
+                                    <div class="input-icon right"><i class="jstree-icon jstree-themeicon fa fa-send-o fa-fw jstree-themeicon-custom"></i>
+                                        <input type="hidden" name="_csrf" value="<?php echo Yii::$app->request->csrfToken;?>" />
+                                        <input type="text" placeholder="规则用户：<?=$arr['aname']?>" disabled name="rename" class="form-control">
                                     </div>
                                 </div>
-                                <div class="portlet-body">
-                                    <form action="?r=reply/add" method="post" class="form-validate-signup">
-                                   
-                                <table width="200" height="300">
-                                <input name="_csrf" type="hidden" id="_csrf" value="<?= Yii::$app->request->csrfToken ?>" />
-                                    <tr>
-                                        <td>规则用户:</td>
-                                        <td>
-                                            <select name="aid">
-                                                <?php
-                                    foreach($arr as $val){
-                                    ?>
-                                        <option value="<?php echo $val['aid'] ?>"><?php echo $val['aname'] ?></option>
-                                    <?php
-                                        }
-                                    ?>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>标题:</td>
-                                        <td>
-                                            <input type="text" name="rename" /> 
-                                         </td>
-                                </tr>
-                                <tr>
-                                    <td>关键字：</td>
-                                    <td>
-                                       <input type="text" name="rekeyword" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>回复内容：</td>
-                                    <td>
-                                        <textarea name="trcontent"></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    
-                                    <td colspan="2">
-                                        <input type="submit" class="btn btn-success btn-block" value="提交" />
-                                        <input type="reset" class="btn btn-success btn-block" value="返回" />
+                                <div class="form-group">
+                                    <div class="input-icon right"><i class="jstree-icon jstree-themeicon fa fa-send-o fa-fw jstree-themeicon-custom"></i>
+                                        <input type="hidden" name="aid" value="<?=$arr['aid']?>" />
+                                        <input type="text" placeholder="标题" name="rename" class="form-control">
+                                    </div>
+                                </div>
 
-                                    </td>
-                                </tr>
-                            </table>
+                                <div class="form-group">
+                                    <div class="input-icon right"><i class="jstree-icon jstree-themeicon fa fa-paperclip jstree-themeicon-custom"></i>
+                                        <input type="text" placeholder="关键字" name="rekeyword" class="form-control">
+                                    </div>
+                                </div>
 
-                                </form>
+                                <div class="form-group">
+                                    <div class="input-icon right"> 回复内容：
+                                        <textarea name="trcontent" id="editor"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mbn">
+                                    <button type="reset" class="btn btn-warning" ><i class="fa fa-chevron-circle-left"> &nbsp;重置 </i></button>
+
+                                    <button type="submit" class="btn btn-info pull-right">添加 &nbsp;
+                                        <i class="fa fa-chevron-circle-right"></i>
+                                    </button>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
-                </center> 
-                <!--END CONTENT-->
+
+                <!--添加结束-->
             </div>
+            <script type="text/javascript" charset="utf-8" src="baidu/ueditor.config.js"></script>
+            <script type="text/javascript" charset="utf-8" src="baidu/ueditor.all.min.js"> </script>
+            <script type="text/javascript">
+                var ue = UE.getEditor('editor');
+            </script>
+

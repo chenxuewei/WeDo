@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 陈学卫
+Source Server         : localhost
 Source Server Version : 50540
-Source Host           : 192.168.1.142:3306
+Source Host           : 127.0.0.1:3306
 Source Database       : wedoaaa
 
 Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2016-07-21 19:30:07
+Date: 2016-07-22 15:11:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,7 +33,7 @@ CREATE TABLE `account` (
   PRIMARY KEY (`aid`),
   KEY `FK_Relationship_4` (`uid`),
   KEY `FK_Relationship_5` (`mid`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of account
@@ -84,12 +84,12 @@ CREATE TABLE `graphic_reply` (
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `mid` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `content` varchar(1) DEFAULT NULL,
-  `states` varchar(50) DEFAULT NULL,
+  `aid` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `states` varchar(255) NOT NULL,
   PRIMARY KEY (`mid`),
-  KEY `FK_Relationship_6` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  KEY `FK_Relationship_6` (`aid`)
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
@@ -102,11 +102,10 @@ DROP TABLE IF EXISTS `reply`;
 CREATE TABLE `reply` (
   `reid` int(11) NOT NULL AUTO_INCREMENT,
   `aid` int(11) DEFAULT NULL,
-  `rename` varchar(50) DEFAULT NULL,
-  `rekeyword` varchar(50) DEFAULT NULL,
-  `retype` varchar(1) DEFAULT NULL,
+  `rename` varchar(255) DEFAULT NULL,
+  `rekeyword` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`reid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of reply
@@ -121,7 +120,7 @@ CREATE TABLE `text_reply` (
   `reid` int(11) DEFAULT NULL,
   `trcontent` varchar(255) NOT NULL,
   PRIMARY KEY (`trid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of text_reply
@@ -136,7 +135,7 @@ CREATE TABLE `user` (
   `uname` varchar(30) NOT NULL,
   `upwd` varchar(50) NOT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
