@@ -5,11 +5,11 @@
 
 //define your token
 $str=$_GET['str'];
-echo $str;die;
+//echo $str;die;
 include_once("./web/assets/abc.php");
 $pdo ->query("set names utf8");
 $rs = $pdo->query("SELECT * FROM wd_account where atok ='$str'")->fetch(PDO::FETCH_ASSOC);
-print_r($rs);die;
+//print_r($rs);die;
 $token = $rs['atoken'];
 $appid = $rs['appid'];
 $appsecret = $rs['appsecret'];
@@ -145,19 +145,19 @@ class wechatCallbackapiTest
 
     //CURL模拟POST提交
     public function curlPost($url,$data,$method){
-        $ch = curl_init();   //1.初始化
+        $ch = curl_init();   //1.初始�?
         curl_setopt($ch, CURLOPT_URL, $url); //2.请求地址
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);//3.请求方式
         //4.参数如下
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);//https
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');//模拟浏览器
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');//模拟浏览�?
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
               curl_setopt($ch, CURLOPT_HTTPHEADER,array('Accept-Encoding: gzip, deflate'));//gzip解压内容
               curl_setopt($ch, CURLOPT_ENCODING, 'gzip,deflate');
           
-        if($method=="POST"){//5.post方式的时候添加数据
+        if($method=="POST"){//5.post方式的时候添加数�?
           curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

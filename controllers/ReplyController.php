@@ -129,7 +129,7 @@ class ReplyController extends HomeController
 	}
 	/*
     * 图文回复
-    * @[author]超
+    * @[author]�?
     */
 	public function actionGraphic()
 	{
