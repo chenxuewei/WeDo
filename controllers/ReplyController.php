@@ -13,20 +13,20 @@ use app\models\Graphic;
 class ReplyController extends HomeController
 {	
 	public $layout='project';
-	//åŠ è½½æ·»åŠ è§„åˆ™é¡µé¢
+	//¼ÓÔØÌí¼Ó¹æÔòÒ³Ãæ
 	public function actionRuled(){
 		$session = Yii::$app->session;
 		$id = $session->get('aid');
 		if(!$id){
-			return    $this->success(['index/index'],'è¿˜æ²¡æœ‰é€‰å–å…¬ä¼—å·ï¼Œè¯·é€‰æ‹©è¦æ“ä½œçš„å…¬ä¼—å·');die;
+			return    $this->success(['index/index'],'»¹Ã»ÓĞÑ¡È¡¹«ÖÚºÅ£¬ÇëÑ¡ÔñÒª²Ù×÷µÄ¹«ÖÚºÅ');die;
 		}
-		//è·å–ç”¨æˆ·çš„ä¿¡æ¯
-		$user=Account::find()->where('uid='.$id)->asArray()->one();
-		//print_r($row);die;	
+		//»ñÈ¡ÓÃ»§µÄĞÅÏ¢
+		$user=Account::find()->where('aid='.$id)->asArray()->one();
+		// print_r($row);die;	
 		return $this->render('ruled',['arr'=>$user]);
 	}
 
-	//æ·»åŠ è§„åˆ™
+	//Ìí¼Ó¹æÔò
 	public function actionAdd(){
 
 
@@ -36,7 +36,7 @@ class ReplyController extends HomeController
 		$aid=$arr['aid'];
 		$rename=$arr['rename'];
 		$rekeyword=$arr['rekeyword'];
-		$date['trcontent']=$arr['trcontent'];
+		$date['trcontent']=strip_tags($arr['trcontent']);
 		$reply=new Reply();
 		$reply->attributes=$arr;
 		$res=$reply->insert(
@@ -52,15 +52,14 @@ class ReplyController extends HomeController
 		$textReply=new Text_reply();
 		$textReply->reid=$reid;
 		$textReply->trcontent=$date['trcontent'];
-		$ress=$textReply->save(
-			);
+		$ress=$textReply->save();
 		if($ress){
 			return $this->success('reply/sreply');
 		}
 		
 	}
 
-	//æ–‡å­—å›å¤
+	//ÎÄ×Ö»Ø¸´
 	public function actionSreply(){
 		$tem = Yii::$app->db->tablePrefix;
 		$query=new \yii\db\Query();
@@ -107,7 +106,7 @@ class ReplyController extends HomeController
 
 	}
 
-	//åˆ é™¤
+	//É¾³ı
 	function actionDel(){
 		$reply=new Reply();
 		$request=\yii::$app->request;
@@ -123,12 +122,12 @@ class ReplyController extends HomeController
 			return $this->success('reply/sreply');
 			
 		}else{
-			return $this->error('åˆ é™¤å¤±è´¥');
+			return $this->error('É¾³ıÊ§°Ü');
 		}
 	}
 	/*
-    * å›¾æ–‡å›å¤
-    * @[author]è¶?
+    * Í¼ÎÄ»Ø¸´
+    * @[author]³¬
     */
 	public function actionGraphic()
 	{
@@ -139,7 +138,7 @@ class ReplyController extends HomeController
 			$id = $session->get('aid');
 			//print_r($id);die;
 			if(!$id){
-				return   $this->success(['index/index'],'è¿˜æ²¡æœ‰é€‰å–å…¬ä¼—å·ï¼Œè¯·é€‰ç€è¦æ“ä½œçš„å…¬ä¼—å·');die;
+				return   $this->success(['index/index'],'»¹Ã»ÓĞÑ¡È¡¹«ÖÚºÅ£¬ÇëÑ¡×ÅÒª²Ù×÷µÄ¹«ÖÚºÅ');die;
 			}
 			$user=Account::find()->where('aid='.$id)->asArray()->one();
 			//print_r($user);die;
@@ -147,27 +146,24 @@ class ReplyController extends HomeController
 		}
 		else
 		{
-			//å›¾ç‰‡
+			//Í¼Æ¬
 			$file=UploadedFile::getInstanceByName('s_img');
-			$new_name=time().rand(1,100).substr($file->name,strrpos($file->name,'.'));
-			if(!is_dir('public/img/')){
-				mkdir('public/img',0777,true);
-			}
-			$pak='public/img/'.$new_name;
-
+			$newName=time().rand(1,100).substr($file->name,strrpos($file->name,'.'));
+			//echo  $newName;die;
+			$pak='public/img/'.$newName;
 			$file->saveAs($pak,true);
 			$data=$request->post();
 			$model=new Graphic();
 			$model->s_title=$data['s_title'];
 			$model->s_url=$data['s_url'];
-			$model->s_desc=$data['s_desc'];
+			$model->s_desc=strip_tags($data['s_desc']);
 			$model->s_img=$pak;
 			$model->a_id=$data['a_id'];
 			$model->s_guan=$data['s_guan'];
 			$a=$model->save();
 			if($a)
 			{
-				echo "<script>alert('æäº¤æˆåŠŸ');location.href='?r=reply/graphic'</script>";
+				echo "<script>alert('Ìá½»³É¹¦');location.href='?r=reply/graphic'</script>";
 			}
 	   }
 	}
