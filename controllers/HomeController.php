@@ -15,7 +15,6 @@ class HomeController extends Controller
         $uname=$session->get('uname');
         if(!isset($uid) || !isset($uname)){
         	echo "<script>alert('您没有登陆');location.href='?r=extra/login'</script>";
-          	// return $this->success(['extra/login'],'您还没有登录，请登录!');
         }
     }
 }

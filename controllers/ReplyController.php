@@ -150,7 +150,11 @@ class ReplyController extends HomeController
 			//图片
 			$file=UploadedFile::getInstanceByName('s_img');
 			$new_name=time().rand(1,100).substr($file->name,strrpos($file->name,'.'));
+			if(!is_dir('public/img/')){
+				mkdir('public/img',0777,true);
+			}
 			$pak='public/img/'.$new_name;
+
 			$file->saveAs($pak,true);
 			$data=$request->post();
 			$model=new Graphic();

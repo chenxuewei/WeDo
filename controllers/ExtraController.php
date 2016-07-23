@@ -40,9 +40,9 @@ class ExtraController extends Controller
       if (is_file("assets/existence.php")) {
 	    $uid = Yii::$app->session->get('uid');
             if ($uid) {
-               return $this->render('extra-signin');
-            } else {
                 return $this->success(['index/index'],'您已处于登陆状态，无需再次登陆');
+            } else {
+                 return $this->render('extra-signin');
             }
        } else {
            return  $this->success(['install/install'],'您还没有安装，即将跳入安装页面！');
