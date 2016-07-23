@@ -24,7 +24,7 @@ class MenuController extends Controller
         $id = $session->get('aid');
         //print_r($id);
         if(!$id){
-            return     $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');die;
+           return $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');
         }
         $user=Account::find()->where('aid='.$id)->asArray()->one();
         $count=Menu::find()->where('aid='.$id)->count();
