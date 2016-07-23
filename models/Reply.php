@@ -7,13 +7,6 @@ use yii\db\ActiveRecord;
 class Reply extends ActiveRecord
 {
 
-/**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'wd_reply';
-    }
 
     /**
      * @inheritdoc

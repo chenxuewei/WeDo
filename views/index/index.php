@@ -18,7 +18,7 @@
         </div>
         <!--END TITLE & BREADCRUMB PAGE-->
         <!--BEGIN CONTENT-->
-        <div class="page-content">
+       <div class="page-content">
             <div id="tab-general">
                 <div id="sum_box" class="row mbl">
                     <div class="col-sm-6 col-md-3">
@@ -79,7 +79,15 @@
                     </div>
                 </div>
                 <div class="row mbl">
-                    <div class="col-lg-8">
+                    <div id="div3" width="450" height="500">
+                        <span style="font-size: 14px;">选择公众号:</span><select onchange="fun()" class="form-control" id="ss">
+                            <option value="">请选择公众号</option>
+                            <?php foreach($list as $value) { ?>
+                                <option value="<?php echo $value['aid']?>"><?php echo $value['aname']?></option>
+                            <?php      }?>
+                        </select>
+                    </div>
+                <div class="col-lg-8" id="div2">
                         <div class="panel">
                             <div class="panel-body">
                                 <div class="row">
@@ -331,3 +339,17 @@
         <!--END CONTENT-->
     </div>
 <!--end PAGE WRAPPER-->
+<script src="js/jquery-1.10.2.min.js"></script>
+<script>
+ function fun()
+ {
+      var aa=$("#ss").val();
+     $.get("?r=index/aid",{id:aa},function(msg){
+         if(msg)
+         {
+             alert('已存储');
+         }
+
+     })
+ }
+</script>

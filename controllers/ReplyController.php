@@ -4,7 +4,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use app\models\Reply;
-use app\models\TextReply;
+use app\models\Text_reply;
 use app\models\Account;
 use yii\data\Pagination;
 use yii\web\UploadedFile;
@@ -15,15 +15,20 @@ class ReplyController extends HomeController
 	public $layout='project';
 	//加载添加规则页面
 	public function actionRuled(){
-		$row = Account::find()->asArray()->all();
+		$session = Yii::$app->session;
+		$id = $session->get('aid');
+		if(!$id){
+			return    $this->success(['index/index'],'还没有选取公众号，请选择要操作的公众号');die;
+		}
+		//获取用户的信息
+		$user=Account::find()->where('uid='.$id)->asArray()->one();
 		//print_r($row);die;	
-		return $this->render('ruled',['arr'=>$row]);
+		return $this->render('ruled',['arr'=>$user]);
 	}
 
 	//添加规则
 	public function actionAdd(){
-		// $connection=\Yii::$app->db;
-		// $reid=$connection->getLastInsertID();
+
 
 		$request=\yii::$app->request;
 		$arr=$request->post();
@@ -32,7 +37,6 @@ class ReplyController extends HomeController
 		$rename=$arr['rename'];
 		$rekeyword=$arr['rekeyword'];
 		$date['trcontent']=$arr['trcontent'];
-
 		$reply=new Reply();
 		$reply->attributes=$arr;
 		$res=$reply->insert(
@@ -45,7 +49,7 @@ class ReplyController extends HomeController
 		//$arr['reid']=$reid;
 		//$date['reid']=$reid;
 		//print_r($date);die;
-		$textReply=new TextReply();
+		$textReply=new Text_reply();
 		$textReply->reid=$reid;
 		$textReply->trcontent=$date['trcontent'];
 		$ress=$textReply->save(
@@ -58,26 +62,22 @@ class ReplyController extends HomeController
 
 	//文字回复
 	public function actionSreply(){
-		//$connection=\yii::$app->db;
 		$tem = Yii::$app->db->tablePrefix;
 		$query=new \yii\db\Query();
+
 		$query1=$query->from($tem.'reply')->innerjoin($tem.'text_reply',"".$tem."reply.reid=".$tem."text_reply.reid");
 
-		// $query=$connection->createCommand()->select('*')->join('join','wd_text_reply','wd_reply.reid=wd_text_reply.reid');
-		// $query=Reply::find()->join('join','wd_text_reply','wd_reply.reid=wd_text_reply.reid');
-		//echo $query;die;
-		$Pagination=new pagination([
-			'defaultPageSize'=>2,
-			'totalCount'=>$query1->count(),
-			]);
+		$pagination = new Pagination([
+			'defaultPageSize' => 2,
+			'totalCount' => $query1->count(),
+		]);
 		$countries=$query1->orderBy('rename')
-		->offset($Pagination->offset)
-		->limit($Pagination->limit)
+		->offset($pagination->offset)
+		->limit($pagination->limit)
 		->all();
-		//print_r($countries);die;
 		return $this->render('rlist',[
 			'countries'=>$countries,
-			'pagination'=>$Pagination,
+			'pagination'=>$pagination,
 			]);
 
 	}
@@ -91,7 +91,6 @@ class ReplyController extends HomeController
 		$query1=$query->from($tem.'reply')->innerjoin($tem.'text_reply',"".$tem."reply.reid=".$tem."text_reply.reid")->andFilterWhere(['like','rename',$ser]);
 
 
-		//$query=Reply::find()->andFilterWhere(['like','rename',$ser]);
 		$Pagination=new pagination([
 			'defaultPageSize'=>2,
 			'totalCount'=>$query1->count(),
@@ -136,17 +135,26 @@ class ReplyController extends HomeController
 		$request=\yii::$app->request;
 		if(!$request->isPost)
 		{
-			$tem = Yii::$app->db->tablePrefix;
-			$query=new \yii\db\Query();
-			$data['list']=$query->select('*')->from($tem.'account')->all();
-			return $this->render('graphic',$data);
+			$session = Yii::$app->session;
+			$id = $session->get('aid');
+			//print_r($id);die;
+			if(!$id){
+				return   $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');die;
+			}
+			$user=Account::find()->where('aid='.$id)->asArray()->one();
+			//print_r($user);die;
+			return $this->render('graphic',['arr'=>$user]);
 		}
 		else
 		{
 			//图片
 			$file=UploadedFile::getInstanceByName('s_img');
-			$new_name=time().rand(1,100).$file->name;
+			$new_name=time().rand(1,100).substr($file->name,strrpos($file->name,'.'));
+			if(!is_dir('public/img/')){
+				mkdir('public/img',0777,true);
+			}
 			$pak='public/img/'.$new_name;
+
 			$file->saveAs($pak,true);
 			$data=$request->post();
 			$model=new Graphic();

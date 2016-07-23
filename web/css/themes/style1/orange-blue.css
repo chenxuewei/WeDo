@@ -127,7 +127,7 @@ hr {
     background-color: #33485c;
 }
 #page-wrapper {
-    min-height: 100%;
+    min-height: 800px;;
     padding: 0 !important;
     background-color: #f0f2f5;
 }
