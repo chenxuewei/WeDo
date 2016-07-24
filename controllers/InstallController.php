@@ -317,6 +317,7 @@ class InstallController extends Controller
         //修改表前缀
         $a = "SHOW TABLES FROM ".$db;
         $aa = mysqli_query($link,$a);
+        // print_r($aa);die;
         while($arr = $aa->fetch_row()){
             $table = $dbtem.$arr[0];
             mysqli_query($link,"rename table `$arr[0]` to $table");     
@@ -334,6 +335,7 @@ class InstallController extends Controller
         fputs($fopen,   'aaaaaa ');//向文件中写入内容;
         fclose($fopen);
         $strs=str_replace("// 'db' => require(__DIR__ . '/db.php'),","'db' => require(__DIR__ . '/db.php'),",file_get_contents("../config/web.php"));
+        // echo $strs;die;
         file_put_contents("../config/web.php",$strs);
         
         return  $this->success(['extra/login'],'安装完成，即将跳入登陆页面！');

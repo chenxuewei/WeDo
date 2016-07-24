@@ -153,7 +153,7 @@ class MenuController extends Controller
         $session = Yii::$app->session;
         $id = $session->get('aid');
         if(!$id){
-            return    $this->success(['index/index'],'还没有选取公众号，请选择要操作的公众号');die;
+            return  $this->success(['index/index'],'还没有选取公众号，请选择要操作的公众号');
         }
       //获取用户的信息
         $user=Account::find()->where('uid='.$id)->asArray()->one();

@@ -345,6 +345,7 @@
  {
       var aa=$("#ss").val();
      $.get("?r=index/aid",{id:aa},function(msg){
+        alert(msg);
          if(msg)
          {
              alert('已存储');

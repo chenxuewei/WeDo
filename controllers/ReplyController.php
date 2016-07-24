@@ -21,8 +21,8 @@ class ReplyController extends HomeController
 			return    $this->success(['index/index'],'还没有选取公众号，请选择要操作的公众号');die;
 		}
 		//获取用户的信息
-		$user=Account::find()->where('uid='.$id)->asArray()->one();
-		//print_r($row);die;	
+		$user=Account::find()->where('aid='.$id)->asArray()->one();
+		// print_r($row);die;	
 		return $this->render('ruled',['arr'=>$user]);
 	}
 
@@ -36,7 +36,7 @@ class ReplyController extends HomeController
 		$aid=$arr['aid'];
 		$rename=$arr['rename'];
 		$rekeyword=$arr['rekeyword'];
-		$date['trcontent']=$arr['trcontent'];
+		$date['trcontent']=strip_tags($arr['trcontent']);
 		$reply=new Reply();
 		$reply->attributes=$arr;
 		$res=$reply->insert(
@@ -156,7 +156,7 @@ class ReplyController extends HomeController
 			$model=new Graphic();
 			$model->s_title=$data['s_title'];
 			$model->s_url=$data['s_url'];
-			$model->s_desc=$data['s_desc'];
+			$model->s_desc=strip_tags($data['s_desc']);
 			$model->s_img=$pak;
 			$model->a_id=$data['a_id'];
 			$model->s_guan=$data['s_guan'];
