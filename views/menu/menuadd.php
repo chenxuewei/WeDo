@@ -246,7 +246,7 @@
                             </td>
                         </tr>
                     <?php }else{ ?>
-                        <tr class="hover" data-do="forward" data-url="" data-forward="<?=$v['key'] ?>">
+                        <tr class="hover" data-do="forward"  <?php if($v['type']=='view'){echo "data-url='{$v['url']}'";}else{ echo "data-forward=".'"'.$v['key'].'"';} ?>>
                             <td>
                                 <div>
                                     <input type="text" class="span4" value="<?=$v['name'] ?>"> &nbsp; &nbsp;

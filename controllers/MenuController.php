@@ -34,7 +34,6 @@ class MenuController extends Controller
         }else{
             $arr='';
         }
-        //print_r($user);die;
         return $this->render('menuadd',['menu'=>$arr,'user'=>$user]);
     }
     public function curlPost($url,$data,$method){
