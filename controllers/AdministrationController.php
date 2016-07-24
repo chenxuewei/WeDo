@@ -17,7 +17,7 @@ class AdministrationController extends HomeController
 		return $this->render('glist');
 	}
 
-	//公众号添�?
+	//公众号添加
 	public function actionAdd(){
 			 $atok=$this->actionRands(5);
              $url=substr('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],0,strpos('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'we'))."/weixin.php?str=".$atok;
@@ -47,17 +47,15 @@ class AdministrationController extends HomeController
 			 $account=new Account();
 			 $account->attributes=$arr;
 			 $res=$account->insert();
-
 		if($res){
 			return $this->success('administration/sel');
 			
 		}else{
 			return $this->render('glist',['error'=>$account->getErrors()]);
 		}
-
 	}
 
-	//查询公众�?
+	//查询公众号
 	public function actionSel(){
 		$session = \Yii::$app->session;
         $session->open();
@@ -66,13 +64,13 @@ class AdministrationController extends HomeController
 		// $connection=\Yii::$app->db;
 		// $tem = $connection->tablePrefix;
         $row = Account::find()->where("uid='$uid'")->asArray()->all();
-        // print_r($row);die;
+         //print_r($row);die;
 		//$sql="select * from ".$tem."account join wd_user on ".$tem."account.uid=".$tem."user.uid where ".$tem."account.uid='$uid'";
 		//$row=$connection->createCommand($sql)->queryAll();
 		return $this->render('show',['arr'=>$row]);
 	}
 
-	//查询公众号属�?
+	//查询公众号属性
 	public function actionAttribute(){
 		$request=\yii::$app->request;
 		$aid=$request->get('aid');
@@ -80,15 +78,11 @@ class AdministrationController extends HomeController
 		// $connection=\Yii::$app->db;
 		//$tem = $connection->tablePrefix;
 		$ress=Account::find()->where("aid='$aid'")->one();
-
-
-		//$ress=$query->select('*')->from($tem."account")->where("aid='$aid'")->one();
-
 		return $this->render('slist',['arr2'=>$ress]);
 	}
 
 
-	//公众号删�?
+	//公众号删除
 	function actionDel(){
 		$account=new Account();
 		$request=\yii::$app->request;
@@ -109,14 +103,10 @@ class AdministrationController extends HomeController
 
 	}
 
-	//公众号编�?
+	//公众号编辑
 	public function actionSave(){
 		$request=\yii::$app->request;
 		$aid=$request->get('aid');
-		// $query=new \yii\db\Query();
-		// $connection=\Yii::$app->db;
-		// $tem = $connection->tablePrefix;
-
 		$date=Account::find()->where("aid='$aid'")->one();
 		return $this->render('saveform',['arr1'=>$date]);
 	}
