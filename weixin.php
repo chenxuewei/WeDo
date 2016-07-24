@@ -8,7 +8,7 @@ $str=$_GET['str'];
 echo $str;die;
 include_once("./web/assets/abc.php");
 $pdo ->query("set names utf8");
-$rs = $pdo->query("SELECT * FROM wd_account where atok ='$str'")->fetch(PDO::FETCH_ASSOC);
+$rs = $pdo->query("SELECT * FROM ".$tem."account where atok ='$str'")->fetch(PDO::FETCH_ASSOC);
 print_r($rs);die;
 $token = $rs['atoken'];
 $appid = $rs['appid'];
@@ -60,8 +60,8 @@ class wechatCallbackapiTest
                </xml>";             
         if(!empty($keyword))
                 {
-                    $arr=$pdo->query("select trcontent from wd_reply inner join wd_text_reply on wd_reply.reid = wd_text_reply.reid where rekeyword='$keyword' and aid= ".ID)->fetch();
-                    $photo = $pdo->query("select * from wd_graphic where s_guan='$keyword' and a_id=".ID)->fetch(PDO::FETCH_ASSOC);
+                    $arr=$pdo->query("select trcontent from ".$tem."reply inner join ".$tem."text_reply on ".$tem."reply.reid = ".$tem."text_reply.reid where rekeyword='$keyword' and aid= ".ID)->fetch();
+                    $photo = $pdo->query("select * from ".$tem."graphic where s_guan='$keyword' and a_id=".ID)->fetch(PDO::FETCH_ASSOC);
                     if($arr){
                         $contentStr = $arr['trcontent'];
                         $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);

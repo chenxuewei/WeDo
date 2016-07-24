@@ -323,6 +323,7 @@ class InstallController extends Controller
         }
         $str1="<?php
                  \$pdo=new PDO('mysql:host=$host;port=".$duan.";dbname=$db','$name','$pwd',array(PDO::MYSQL_ATTR_INIT_COMMAND=>'set names utf8'));
+                   \$tem=".$dbtem.";"."
                      ?>";
         file_put_contents('./assets/abc.php',$str1);
         $tt = $dbtem."user";

@@ -21,8 +21,8 @@ class ReplyController extends HomeController
 			return    $this->success(['index/index'],'还没有选取公众号，请选择要操作的公众号');die;
 		}
 		//获取用户的信息
-		$user=Account::find()->where('uid='.$id)->asArray()->one();
-		//print_r($row);die;	
+		$user=Account::find()->where('aid='.$id)->asArray()->one();
+		//print_r($row);die;
 		return $this->render('ruled',['arr'=>$user]);
 	}
 
@@ -32,7 +32,6 @@ class ReplyController extends HomeController
 
 		$request=\yii::$app->request;
 		$arr=$request->post();
-		//print_r($arr);die;
 		$aid=$arr['aid'];
 		$rename=$arr['rename'];
 		$rekeyword=$arr['rekeyword'];
@@ -62,6 +61,14 @@ class ReplyController extends HomeController
 
 	//文字回复
 	public function actionSreply(){
+		$session = Yii::$app->session;
+		$id = $session->get('aid');
+		//print_r($id);die;
+		if(!$id){
+			return   $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');die;
+		}
+		$user=Account::find()->where('aid='.$id)->asArray()->one();
+
 		$tem = Yii::$app->db->tablePrefix;
 		$query=new \yii\db\Query();
 
@@ -71,7 +78,8 @@ class ReplyController extends HomeController
 			'defaultPageSize' => 2,
 			'totalCount' => $query1->count(),
 		]);
-		$countries=$query1->orderBy('rename')
+		$countries=$query1->where('aid='.$user['aid'])
+			->orderBy('rename')
 		->offset($pagination->offset)
 		->limit($pagination->limit)
 		->all();
