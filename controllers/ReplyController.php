@@ -13,23 +13,21 @@ use app\models\Graphic;
 class ReplyController extends HomeController
 {	
 	public $layout='project';
-	//¼ÓÔØÌí¼Ó¹æÔòÒ³Ãæ
+	//æ·»åŠ è§„åˆ™ï¿½
 	public function actionRuled(){
 		$session = Yii::$app->session;
 		$id = $session->get('aid');
 		if(!$id){
-			return    $this->success(['index/index'],'»¹Ã»ÓĞÑ¡È¡¹«ÖÚºÅ£¬ÇëÑ¡ÔñÒª²Ù×÷µÄ¹«ÖÚºÅ');die;
+			return    $this->success(['index/index'],'æ‚¨è¿˜æ²¡æœ‰é€‰æ‹©å…¬ä¼—å·');die;
 		}
-		//»ñÈ¡ÓÃ»§µÄĞÅÏ¢
+		//å¦‚æœé€‰æ‹©äº†
 		$user=Account::find()->where('aid='.$id)->asArray()->one();
 		// print_r($row);die;	
 		return $this->render('ruled',['arr'=>$user]);
 	}
 
-	//Ìí¼Ó¹æÔò
+	//æ·»åŠ å…¥åº“ï¿½ï¿½
 	public function actionAdd(){
-
-
 		$request=\yii::$app->request;
 		$arr=$request->post();
 		//print_r($arr);die;
@@ -59,7 +57,7 @@ class ReplyController extends HomeController
 		
 	}
 
-	//ÎÄ×Ö»Ø¸´
+	//è§„åˆ™å±•ç¤º
 	public function actionSreply(){
 		$tem = Yii::$app->db->tablePrefix;
 		$query=new \yii\db\Query();
@@ -106,7 +104,7 @@ class ReplyController extends HomeController
 
 	}
 
-	//É¾³ı
+	  //åˆ é™¤ï¿½
 	function actionDel(){
 		$reply=new Reply();
 		$request=\yii::$app->request;
@@ -114,20 +112,18 @@ class ReplyController extends HomeController
 		//print_r($aid);die;
 		// $connection=\Yii::$app->db;
 		// $tem = $connection->tablePrefix;
-
-
 		$re=$reply->deleteAll("reid='$reid'");
 
 		if($re){
 			return $this->success('reply/sreply');
 			
 		}else{
-			return $this->error('É¾³ıÊ§°Ü');
+			return $this->error('åˆ é™¤å¤±è´¥');
 		}
 	}
 	/*
-    * Í¼ÎÄ»Ø¸´
-    * @[author]³¬
+    * å›¾æ–‡å›å¤
+    * @[author]ï¿½ï¿½
     */
 	public function actionGraphic()
 	{
@@ -138,7 +134,7 @@ class ReplyController extends HomeController
 			$id = $session->get('aid');
 			//print_r($id);die;
 			if(!$id){
-				return   $this->success(['index/index'],'»¹Ã»ÓĞÑ¡È¡¹«ÖÚºÅ£¬ÇëÑ¡×ÅÒª²Ù×÷µÄ¹«ÖÚºÅ');die;
+				return   $this->success(['index/index'],'æ‚¨è¿˜æ²¡æœ‰é€‰æ‹©å…¬ä¼—å·');die;
 			}
 			$user=Account::find()->where('aid='.$id)->asArray()->one();
 			//print_r($user);die;
@@ -146,7 +142,7 @@ class ReplyController extends HomeController
 		}
 		else
 		{
-			//Í¼Æ¬
+			//æ¥æ”¶å€¼å…¥åº“
 			$file=UploadedFile::getInstanceByName('s_img');
 			$newName=time().rand(1,100).substr($file->name,strrpos($file->name,'.'));
 			//echo  $newName;die;
@@ -163,7 +159,7 @@ class ReplyController extends HomeController
 			$a=$model->save();
 			if($a)
 			{
-				echo "<script>alert('Ìá½»³É¹¦');location.href='?r=reply/graphic'</script>";
+				echo "<script>alert('æ·»åŠ æˆåŠŸ');location.href='?r=reply/graphic'</script>";
 			}
 	   }
 	}
