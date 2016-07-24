@@ -20,7 +20,7 @@ class InstallController extends Controller
      * 验证是否安装
      */
     function actionIndex(){
-        // 安装界面如果安装好之后生成一个php文件 文件如果存在则跳到登录界面
+        // 安装界面如果安装好之后生成一个php文件 文件如果存在则跳到登录界�?
        if (is_file("assets/existence.php")) {
            return $this->redirect(['extra/login']);
        } else {
@@ -55,15 +55,15 @@ class InstallController extends Controller
 
         //环境监测
         $ret = array();
-        $ret['server']['os']['value'] = php_uname();//电脑的系统配置
+        $ret['server']['os']['value'] = php_uname();//电脑的系统配�?
 
         if(PHP_SHLIB_SUFFIX == 'dll') {
             $ret['server']['os']['remark'] = '建议使用 Linux 系统以提升程序性能';
             $ret['server']['os']['class'] = 'warning';
         }
-        $ret['server']['sapi']['value'] = $_SERVER['SERVER_SOFTWARE'];//服务器软件
+        $ret['server']['sapi']['value'] = $_SERVER['SERVER_SOFTWARE'];//服务器软�?
         if(PHP_SAPI == 'isapi') {
-            $ret['server']['sapi']['remark'] = '建议使用 Apache 或 Nginx 以提升程序性能';
+            $ret['server']['sapi']['remark'] = '建议使用 Apache �?Nginx 以提升程序性能';
             $ret['server']['sapi']['class'] = 'warning';
         }
         $ret['server']['php']['value'] = PHP_VERSION;
@@ -80,7 +80,7 @@ class InstallController extends Controller
         if(version_compare(PHP_VERSION, '5.3.0') == -1) {
             $ret['php']['version']['class'] = 'danger';
             $ret['php']['version']['failed'] = true;
-            $ret['php']['version']['remark'] = 'PHP版本必须为 5.3.0 以上. <a href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58062">详情</a>';
+            $ret['php']['version']['remark'] = 'PHP版本必须�?5.3.0 以上. <a href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58062">详情</a>';
         }
 
         $ret['php']['mysql']['ok'] = function_exists('mysql_connect');
@@ -96,7 +96,7 @@ class InstallController extends Controller
             $ret['php']['pdo']['value'] = '<span class="glyphicon glyphicon-ok text-success"></span>';
             $ret['php']['pdo']['class'] = 'success';
             if(!$ret['php']['mysql']['ok']) {
-                $ret['php']['pdo']['remark'] = '您的PHP环境不支持 mysql_connect，请开启此扩展. <a target="_blank" href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58073">详情</a>';
+                $ret['php']['pdo']['remark'] = '您的PHP环境不支�?mysql_connect，请开启此扩展. <a target="_blank" href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58073">详情</a>';
             }
         } else {
             $ret['php']['pdo']['failed'] = true;
@@ -123,13 +123,13 @@ class InstallController extends Controller
             $ret['php']['curl']['value'] = '<span class="glyphicon glyphicon-ok text-success"></span>';
             $ret['php']['curl']['class'] = 'success';
             if(!$ret['php']['fopen']['ok']) {
-                $ret['php']['curl']['remark'] = '您的PHP环境虽然不支持 allow_url_fopen, 但已经支持了cURL, 这样系统是可以正常高效运行的, 不需要额外处理. <a target="_blank" href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58076">详情</a>';
+                $ret['php']['curl']['remark'] = '您的PHP环境虽然不支�?allow_url_fopen, 但已经支持了cURL, 这样系统是可以正常高效运行的, 不需要额外处�? <a target="_blank" href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58076">详情</a>';
             }
         } else {
             if($ret['php']['fopen']['ok']) {
                 $ret['php']['curl']['value'] = '<span class="glyphicon glyphicon-remove text-warning"></span>';
                 $ret['php']['curl']['class'] = 'warning';
-                $ret['php']['curl']['remark'] = '您的PHP环境不支持cURL, 但支持 allow_url_fopen, 这样系统虽然可以运行, 但还是建议你开启cURL以提升程序性能和系统稳定性. <a target="_blank" href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58086">详情</a>';
+                $ret['php']['curl']['remark'] = '您的PHP环境不支持cURL, 但支�?allow_url_fopen, 这样系统虽然可以运行, 但还是建议你开启cURL以提升程序性能和系统稳定�? <a target="_blank" href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58086">详情</a>';
             } else {
                 $ret['php']['curl']['value'] = '<span class="glyphicon glyphicon-remove text-danger"></span>';
                 $ret['php']['curl']['class'] = 'danger';
@@ -168,7 +168,7 @@ class InstallController extends Controller
             $ret['php']['dom']['value'] = '<span class="glyphicon glyphicon-remove text-danger"></span>';
             $ret['php']['dom']['class'] = 'danger';
             $ret['php']['dom']['failed'] = true;
-            $ret['php']['dom']['remark'] = '没有启用DOMDocument, 将无法正常安装使用模块, 系统无法正常运行. <a target="_blank" href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58111">详情</a>';
+            $ret['php']['dom']['remark'] = '没有启用DOMDocument, 将无法正常安装使用模�? 系统无法正常运行. <a target="_blank" href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58111">详情</a>';
         }
 
         $ret['php']['session']['ok'] = ini_get('session.auto_start');
@@ -179,7 +179,7 @@ class InstallController extends Controller
             $ret['php']['session']['value'] = '<span class="glyphicon glyphicon-remove text-danger"></span>';
             $ret['php']['session']['class'] = 'danger';
             $ret['php']['session']['failed'] = true;
-            $ret['php']['session']['remark'] = '系统session.auto_start开启, 将无法正常注册会员, 系统无法正常运行. <a target="_blank" href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58111">详情</a>';
+            $ret['php']['session']['remark'] = '系统session.auto_start开�? 将无法正常注册会�? 系统无法正常运行. <a target="_blank" href="http://bbs.we7.cc/forum.php?mod=redirect&goto=findpost&ptid=3564&pid=58111">详情</a>';
         }
 
         $ret['php']['asp_tags']['ok'] = ini_get('asp_tags');
@@ -201,7 +201,7 @@ class InstallController extends Controller
             $ret['write']['root']['value'] = '<span class="glyphicon glyphicon-remove text-danger"></span>';
             $ret['write']['root']['class'] = 'danger';
             $ret['write']['root']['failed'] = true;
-            $ret['write']['root']['remark'] = '本地目录无法写入, 将无法使用自动更新功能, 系统无法正常运行.  <a href="http://bbs.we7.cc/">详情</a>';
+            $ret['write']['root']['remark'] = '本地目录无法写入, 将无法使用自动更新功�? 系统无法正常运行.  <a href="http://bbs.we7.cc/">详情</a>';
         }
         $ret['write']['data']['ok'] = $this->local_writeable(IA_ROOT . '/data');
         if($ret['write']['data']['ok']) {
@@ -211,7 +211,7 @@ class InstallController extends Controller
             $ret['write']['data']['value'] = '<span class="glyphicon glyphicon-remove text-danger"></span>';
             $ret['write']['data']['class'] = 'danger';
             $ret['write']['data']['failed'] = true;
-            $ret['write']['data']['remark'] = 'data目录无法写入, 将无法写入配置文件, 系统无法正常安装. ';
+            $ret['write']['data']['remark'] = 'data目录无法写入, 将无法写入配置文�? 系统无法正常安装. ';
         }
 
         $ret['continue'] = true;
@@ -247,7 +247,7 @@ class InstallController extends Controller
     }
 
     /*
-     * 数据库创建表单页面
+     * 数据库创建表单页�?
      */
     function actionMysql(){
 
@@ -271,11 +271,11 @@ class InstallController extends Controller
         $post=\Yii::$app->request->post();
 //        print_r($post);die;
         $host=$post['db']['server'];//数据库地址
-        $duan=$post['db']['duan'];//数据库端口
+        $duan=$post['db']['duan'];//数据库端�?
         $name=$post['db']['username'];//数据库用户名
-        $pwd=$post['db']['password'];//数据库密码
-        $db=$post['db']['name'];//数据库名字
-        $uname=$post['user']['username'];//用户名
+        $pwd=$post['db']['password'];//数据库密�?
+        $db=$post['db']['name'];//数据库名�?
+        $uname=$post['user']['username'];//用户�?
         $upwd=md5($post['user']['password']);//用户密码
         $dbtem=$post['db']['prefix'];//表前缀
         //echo $db;die;

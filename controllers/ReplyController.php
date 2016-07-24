@@ -13,20 +13,21 @@ use app\models\Graphic;
 class ReplyController extends HomeController
 {	
 	public $layout='project';
-	//加载添加规则页面
+	//������ӹ���ҳ��
 	public function actionRuled(){
 		$session = Yii::$app->session;
 		$id = $session->get('aid');
 		if(!$id){
-			return    $this->success(['index/index'],'还没有选取公众号，请选择要操作的公众号');die;
+			return    $this->success(['index/index'],'��û��ѡȡ���ںţ���ѡ��Ҫ�����Ĺ��ں�');die;
 		}
 		//获取用户的信息
 		$user=Account::find()->where('aid='.$id)->asArray()->one();
 		//print_r($row);die;
+
 		return $this->render('ruled',['arr'=>$user]);
 	}
 
-	//添加规则
+	//��ӹ���
 	public function actionAdd(){
 
 
@@ -35,7 +36,7 @@ class ReplyController extends HomeController
 		$aid=$arr['aid'];
 		$rename=$arr['rename'];
 		$rekeyword=$arr['rekeyword'];
-		$date['trcontent']=$arr['trcontent'];
+		$date['trcontent']=strip_tags($arr['trcontent']);
 		$reply=new Reply();
 		$reply->attributes=$arr;
 		$res=$reply->insert(
@@ -51,15 +52,14 @@ class ReplyController extends HomeController
 		$textReply=new Text_reply();
 		$textReply->reid=$reid;
 		$textReply->trcontent=$date['trcontent'];
-		$ress=$textReply->save(
-			);
+		$ress=$textReply->save();
 		if($ress){
 			return $this->success('reply/sreply');
 		}
 		
 	}
 
-	//文字回复
+	//���ֻظ�
 	public function actionSreply(){
 		$session = Yii::$app->session;
 		$id = $session->get('aid');
@@ -115,7 +115,7 @@ class ReplyController extends HomeController
 
 	}
 
-	//删除
+	//ɾ��
 	function actionDel(){
 		$reply=new Reply();
 		$request=\yii::$app->request;
@@ -131,12 +131,12 @@ class ReplyController extends HomeController
 			return $this->success('reply/sreply');
 			
 		}else{
-			return $this->error('删除失败');
+			return $this->error('ɾ��ʧ��');
 		}
 	}
 	/*
-    * 图文回复
-    * @[author]超
+    * ͼ�Ļظ�
+    * @[author]��
     */
 	public function actionGraphic()
 	{
@@ -147,7 +147,7 @@ class ReplyController extends HomeController
 			$id = $session->get('aid');
 			//print_r($id);die;
 			if(!$id){
-				return   $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');die;
+				return   $this->success(['index/index'],'��û��ѡȡ���ںţ���ѡ��Ҫ�����Ĺ��ں�');die;
 			}
 			$user=Account::find()->where('aid='.$id)->asArray()->one();
 			//print_r($user);die;
@@ -155,27 +155,24 @@ class ReplyController extends HomeController
 		}
 		else
 		{
-			//图片
+			//ͼƬ
 			$file=UploadedFile::getInstanceByName('s_img');
-			$new_name=time().rand(1,100).substr($file->name,strrpos($file->name,'.'));
-			if(!is_dir('public/img/')){
-				mkdir('public/img',0777,true);
-			}
-			$pak='public/img/'.$new_name;
-
+			$newName=time().rand(1,100).substr($file->name,strrpos($file->name,'.'));
+			//echo  $newName;die;
+			$pak='public/img/'.$newName;
 			$file->saveAs($pak,true);
 			$data=$request->post();
 			$model=new Graphic();
 			$model->s_title=$data['s_title'];
 			$model->s_url=$data['s_url'];
-			$model->s_desc=$data['s_desc'];
+			$model->s_desc=strip_tags($data['s_desc']);
 			$model->s_img=$pak;
 			$model->a_id=$data['a_id'];
 			$model->s_guan=$data['s_guan'];
 			$a=$model->save();
 			if($a)
 			{
-				echo "<script>alert('提交成功');location.href='?r=reply/graphic'</script>";
+				echo "<script>alert('�ύ�ɹ�');location.href='?r=reply/graphic'</script>";
 			}
 	   }
 	}

@@ -7,3 +7,4 @@
         'charset' => 'utf8',
         'tablePrefix' => 'we_',
     ];
+
