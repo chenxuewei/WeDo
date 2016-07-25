@@ -8,7 +8,7 @@ $str=$_GET['str'];
 include_once("./web/assets/abc.php");
 $pdo ->query("set names utf8");
 $rs = $pdo->query("SELECT * FROM ".$tem."account where atok ='$str'")->fetch(PDO::FETCH_ASSOC);
-print_r($rs);die;
+// print_r($rs);die;
 $token = $rs['atoken'];
 $appid = $rs['appid'];
 $appsecret = $rs['appsecret'];

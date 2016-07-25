@@ -6,10 +6,24 @@ define("APPSECRET", "612107cae6d8e30c036f7a296623a4bc");
 //注意事项二:第一步：用户同意授权，获取code时,用第二个链接.同时自己链接中的版本号要去掉,比如http://1.mengke.applinzi.com/template.php,转码后要把1去掉!
 $code=$_GET['code'];
 //var_dump($code);die;
+$str=$_GET['str'];
+//echo $str;die;
+include_once("./web/assets/abc.php");
+$pdo ->query("set names utf8");
+$rs = $pdo->query("SELECT * FROM ".$tem."account where atok ='$str'")->fetch(PDO::FETCH_ASSOC);
+// print_r($rs);die;
+$token = $rs['atoken'];
+$appid = $rs['appid'];
+$appsecret = $rs['appsecret'];
+$id = $rs['aid'];
+define("TOKEN", $token);
+define("APPID", $appid);
+define("APPSECRET", $appsecret);
+define("ID", $id);
 $wechatObj = new wechatCallbackapiTest();
 $res=$wechatObj->getuser_info($code);
 
-var_dump($res);
+// var_dump($res);
 
 class wechatCallbackapiTest
 {
