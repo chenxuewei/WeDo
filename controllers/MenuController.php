@@ -22,6 +22,7 @@ class MenuController extends Controller
         $this->layout=false;
         $session = Yii::$app->session;
         $id = $session->get('aid');
+        //print_r($id);
         if(!$id){
            return $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');
         }
@@ -33,7 +34,6 @@ class MenuController extends Controller
         }else{
             $arr='';
         }
-
         return $this->render('menuadd',['menu'=>$arr,'user'=>$user]);
     }
     public function curlPost($url,$data,$method){

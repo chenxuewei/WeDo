@@ -36,7 +36,7 @@ use yii\widgets\ActiveForm;
                         </div>
                         <div class="form-group">
                             <div class="input-icon right"><i class="jstree-icon jstree-themeicon fa fa-send-o fa-fw jstree-themeicon-custom"></i>
-                                <input type="hidden" name="aid" value="<?=$arr['aid']?>" />
+                                <input type="hidden" name="a_id" value="<?=$arr['aid']?>" />
                                 <input type="text" placeholder="标题" name="s_title" class="form-control">
                             </div>
                         </div>

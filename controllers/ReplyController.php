@@ -13,26 +13,22 @@ use app\models\Graphic;
 class ReplyController extends HomeController
 {	
 	public $layout='project';
-	//加载添加规则页面
+	//添加规则�
 	public function actionRuled(){
 		$session = Yii::$app->session;
 		$id = $session->get('aid');
 		if(!$id){
-			return    $this->success(['index/index'],'还没有选取公众号，请选择要操作的公众号');die;
-		}
 		//获取用户的信息
+			return    $this->success(['index/index'],'您还没有选择公众号');die;
+		}
+		//如果选择了
 		$user=Account::find()->where('aid='.$id)->asArray()->one();
-		// print_r($row);die;	
 		return $this->render('ruled',['arr'=>$user]);
 	}
-
-	//添加规则
+	//添加入库��
 	public function actionAdd(){
-
-
 		$request=\yii::$app->request;
 		$arr=$request->post();
-		//print_r($arr);die;
 		$aid=$arr['aid'];
 		$rename=$arr['rename'];
 		$rekeyword=$arr['rekeyword'];
@@ -41,27 +37,26 @@ class ReplyController extends HomeController
 		$reply->attributes=$arr;
 		$res=$reply->insert(
 			);
-
-		//print_r($res);die;
 		$reid=Yii::$app->db->getLastInsertID();
-		//$reid=mysql_insert_id();
-		//echo $reid;die;
-		//$arr['reid']=$reid;
-		//$date['reid']=$reid;
-		//print_r($date);die;
 		$textReply=new Text_reply();
 		$textReply->reid=$reid;
 		$textReply->trcontent=$date['trcontent'];
-		$ress=$textReply->save(
-			);
+		$ress=$textReply->save();
 		if($ress){
 			return $this->success('reply/sreply');
 		}
 		
 	}
-
-	//文字回复
+	//规则展示
 	public function actionSreply(){
+		$session = Yii::$app->session;
+		$id = $session->get('aid');
+		//print_r($id);die;
+		if(!$id){
+			return   $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');die;
+		}
+		$user=Account::find()->where('aid='.$id)->asArray()->one();
+
 		$tem = Yii::$app->db->tablePrefix;
 		$query=new \yii\db\Query();
 
@@ -71,7 +66,8 @@ class ReplyController extends HomeController
 			'defaultPageSize' => 2,
 			'totalCount' => $query1->count(),
 		]);
-		$countries=$query1->orderBy('rename')
+		$countries=$query1->where('aid='.$user['aid'])
+			->orderBy('rename')
 		->offset($pagination->offset)
 		->limit($pagination->limit)
 		->all();
@@ -79,7 +75,6 @@ class ReplyController extends HomeController
 			'countries'=>$countries,
 			'pagination'=>$pagination,
 			]);
-
 	}
 
 
@@ -89,8 +84,6 @@ class ReplyController extends HomeController
 		$tem = Yii::$app->db->tablePrefix;
 		$query=new \yii\db\Query();
 		$query1=$query->from($tem.'reply')->innerjoin($tem.'text_reply',"".$tem."reply.reid=".$tem."text_reply.reid")->andFilterWhere(['like','rename',$ser]);
-
-
 		$Pagination=new pagination([
 			'defaultPageSize'=>2,
 			'totalCount'=>$query1->count(),
@@ -106,29 +99,21 @@ class ReplyController extends HomeController
 			]);
 
 	}
-
-	//删除
-	function actionDel(){
+	  //删除�
+	public function actionDel(){
 		$reply=new Reply();
 		$request=\yii::$app->request;
 		$reid=$request->get('reid');
-		//print_r($aid);die;
-		// $connection=\Yii::$app->db;
-		// $tem = $connection->tablePrefix;
-
-
 		$re=$reply->deleteAll("reid='$reid'");
-
 		if($re){
 			return $this->success('reply/sreply');
-			
 		}else{
-			return $this->error('删除失败');
+              return $this->error('删除失败');
 		}
 	}
 	/*
     * 图文回复
-    * @[author]超
+    * @[author]��
     */
 	public function actionGraphic()
 	{
@@ -139,18 +124,18 @@ class ReplyController extends HomeController
 			$id = $session->get('aid');
 			//print_r($id);die;
 			if(!$id){
-				return   $this->success(['index/index'],'还没有选取公众号，请选着要操作的公众号');die;
+				return   $this->success(['index/index'],'您还没有选择公众号');die;
 			}
 			$user=Account::find()->where('aid='.$id)->asArray()->one();
-			//print_r($user);die;
 			return $this->render('graphic',['arr'=>$user]);
 		}
 		else
 		{
-			//图片
+			//接收值入库
 			$file=UploadedFile::getInstanceByName('s_img');
-			$new_name=time().rand(1,100).substr($file->name,strrpos($file->name,'.'));
-			$pak='public/img/'.$new_name;
+			$newName=time().rand(1,100).substr($file->name,strrpos($file->name,'.'));
+			//echo  $newName;die;
+			$pak='public/img/'.$newName;
 			$file->saveAs($pak,true);
 			$data=$request->post();
 			$model=new Graphic();
@@ -163,7 +148,7 @@ class ReplyController extends HomeController
 			$a=$model->save();
 			if($a)
 			{
-				echo "<script>alert('提交成功');location.href='?r=reply/graphic'</script>";
+				echo "<script>alert('添加成功');location.href='?r=reply/graphic'</script>";
 			}
 	   }
 	}

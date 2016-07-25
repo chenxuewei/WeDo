@@ -80,7 +80,7 @@
                 </div>
                 <div class="row mbl">
                     <div id="div3" width="450" height="500">
-                        <span style="font-size: 14px;">选择公众号:</span><select onchange="fun()" class="form-control" id="ss">
+                        <span style="font-size: 14px;">选择公众号</span><select onchange="fun()" class="form-control" id="ss">
                             <option value="">请选择公众号</option>
                             <?php foreach($list as $value) { ?>
                                 <option value="<?php echo $value['aid']?>"><?php echo $value['aname']?></option>
@@ -343,14 +343,21 @@
 <script>
  function fun()
  {
+
       var aa=$("#ss").val();
+<<<<<<< HEAD
      $.get("?r=index/aid",{id:aa},function(msg){
         alert(msg);
          if(msg)
+=======
+      //alert(aa);
+      $.get("?r=index/aid",{id:aa},function(msg){
+//alert(msg);
+       if(msg)
+>>>>>>> e75baee6d566660d50373d4bf1e01385f22d0d9d
          {
              alert('已存储');
          }
-
      })
  }
 </script>
