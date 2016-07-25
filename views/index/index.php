@@ -345,16 +345,10 @@
  {
 
       var aa=$("#ss").val();
-<<<<<<< HEAD
-     $.get("?r=index/aid",{id:aa},function(msg){
-        alert(msg);
-         if(msg)
-=======
       //alert(aa);
       $.get("?r=index/aid",{id:aa},function(msg){
 //alert(msg);
        if(msg)
->>>>>>> e75baee6d566660d50373d4bf1e01385f22d0d9d
          {
              alert('已存储');
          }
