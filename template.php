@@ -1,6 +1,4 @@
 <?php
-define("APPID", "wxd616fa2c82439bb2");
-define("APPSECRET", "612107cae6d8e30c036f7a296623a4bc");
 //获取用户基本信息思路:1;点击链接获取code 2.使用类调用getuser_info($code)方法把code传过去.3.getuser_info($code)方法调用getAccesstoken_openid方法,得到access_token和openid.从而得到用户基本信息!!!
 //注意事项:链接中的uri,要转码!!
 //注意事项二:第一步：用户同意授权，获取code时,用第二个链接.同时自己链接中的版本号要去掉,比如http://1.mengke.applinzi.com/template.php,转码后要把1去掉!
