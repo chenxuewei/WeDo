@@ -18,22 +18,22 @@ define("APPID", $appid);
 define("APPSECRET", $appsecret);
 define("ID", $id);
 $wechatObj = new wechatCallbackapiTest();
-$wechatObj->valid($pdo);
+$wechatObj->valid($pdo,$tem);
 
 class wechatCallbackapiTest
 {
-    public function valid($pdo)
+    public function valid($pdo,$tem)
     {
         $echoStr = $_GET["echostr"];
         //valid signature , option
         if($this->checkSignature()){
             echo $echoStr;
-            $this->responseMsg($pdo);
+            $this->responseMsg($pdo,$tem);
             exit;
         }
     }
 
-    public function responseMsg($pdo)
+    public function responseMsg($pdo,$tem)
     {
         //get post data, May be due to the different environments
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
