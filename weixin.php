@@ -8,7 +8,7 @@ $str=$_GET['str'];
 include_once("./web/assets/abc.php");
 $pdo ->query("set names utf8");
 $rs = $pdo->query("SELECT * FROM ".$tem."account where atok ='$str'")->fetch(PDO::FETCH_ASSOC);
-// print_r($rs);die;
+//print_r($rs);die;
 $token = $rs['atoken'];
 $appid = $rs['appid'];
 $appsecret = $rs['appsecret'];
@@ -48,7 +48,7 @@ class wechatCallbackapiTest
                 $toUsername = $postObj->ToUserName;
                 $keyword = trim($postObj->Content);
                 $time = time();
-        $msgType = "text";
+                $msgType = "text";
                 $textTpl = "<xml>
                 <ToUserName><![CDATA[%s]]></ToUserName>
                 <FromUserName><![CDATA[%s]]></FromUserName>
@@ -59,12 +59,11 @@ class wechatCallbackapiTest
                </xml>";             
         if(!empty($keyword))
                 {
-                    $arr=$pdo->query("select trcontent from ".$tem."reply inner join ".$tem."text_reply on ".$tem."reply.reid = ".$tem."text_reply.reid where rekeyword='$keyword' and aid= ".ID)->fetch();
+                    $arr=$pdo->query("select trcontent from ".$tem."reply inner join ".$tem."text_reply on ".$tem."reply.reid = ".$tem."text_reply.reid where rekeyword='$keyword' and aid= ".ID)->fetch(PDO::FETCH_ASSOC));
                     $photo = $pdo->query("select * from ".$tem."graphic where s_guan='$keyword' and a_id=".ID)->fetch(PDO::FETCH_ASSOC);
                     if($arr){
                         $contentStr = $arr['trcontent'];
                         $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                        echo $resultStr;
                     }else if($photo){
                         $textTpl = "<xml>
                           <ToUserName><![CDATA[%s]]></ToUserName>
@@ -86,17 +85,15 @@ class wechatCallbackapiTest
                         $title = $photo['s_title'];
                         $description = $photo['s_desc'];
                         $url = $photo['s_url'];
-                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType,$title,$description,$Picurl,$url );
-                        echo $resultStr; 
+                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType,$title,$description,$Picurl,$url );        
                     }else{
                         $url="http://www.tuling123.com/openapi/api?key=81a7161f18e492a769d2dadb6c0ae363&info=".$keyword;
                         $html=file_get_contents($url);
                         $arr=json_decode($html,true);
                         $contentStr = $arr['text'];
                         $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                        echo $resultStr;
                     }                   
-                   
+                    echo $resultStr; 
                 }else{
                     $contentStr = "感谢您的关注";
                     $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);

@@ -20,7 +20,7 @@ class AdministrationController extends HomeController
 	//公众号添加
 	public function actionAdd(){
 			 $atok=$this->actionRands(5);
-             $url=substr('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],0,strpos('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'we'))."/weixin.php?str=".$atok;
+             $url=substr('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],0,strpos('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'we'))."weixin.php?str=".$atok;
              $session = \Yii::$app->session;
              $session->open();
 			 $connection=\Yii::$app->db;
@@ -29,6 +29,7 @@ class AdministrationController extends HomeController
 			 $arr['aurl']=$url;
 			 $arr['atok']=$atok;
 			 $arr['uid']=$session->get('uid');
+			 $arr['account']=strip_tags($arr['account']);		 
 			 //$arr['atoken']=$atoken;
 			 //print_r($arr);die;
 			 //$arr['atoken']=md5(rand(1000,9999));
