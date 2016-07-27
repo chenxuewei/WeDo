@@ -72,7 +72,7 @@ AppAsset::register($this);
 
 
 
-<div class="codrops-demos" style="opacity: 0.4" >
+<div class="codrops-demos" style="opacity: 0.7" >
     <a id="totop" href="#"><i class="fa fa-angle-up"></i></a>
     <div id="header-topbar-option-demo" class="page-header-topbar" >
         <nav id="topbar" role="navigation" style="margin-bottom: 0; z-index: 2;" class="navbar navbar-default navbar-static-top">

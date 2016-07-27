@@ -4,7 +4,7 @@
   */
 //define your token
 $str=$_GET['str'];
-//echo $str;die;
+echo $str;die;
 include_once("./web/assets/abc.php");
 $pdo ->query("set names utf8");
 $rs = $pdo->query("SELECT * FROM ".$tem."account where atok ='$str'")->fetch(PDO::FETCH_ASSOC);
@@ -59,7 +59,7 @@ class wechatCallbackapiTest
                </xml>";             
         if(!empty($keyword))
                 {
-                    $arr=$pdo->query("select trcontent from ".$tem."reply inner join ".$tem."text_reply on ".$tem."reply.reid = ".$tem."text_reply.reid where rekeyword='$keyword' and aid= ".ID)->fetch(PDO::FETCH_ASSOC));
+                    $arr=$pdo->query("select trcontent from ".$tem."reply inner join ".$tem."text_reply on ".$tem."reply.reid = ".$tem."text_reply.reid where rekeyword='$keyword' and aid= ".ID)->fetch(PDO::FETCH_ASSOC);
                     $photo = $pdo->query("select * from ".$tem."graphic where s_guan='$keyword' and a_id=".ID)->fetch(PDO::FETCH_ASSOC);
                     if($arr){
                         $contentStr = $arr['trcontent'];

@@ -54,12 +54,12 @@ class wechatCallbackapiTest
         <meta charset="UTF-8">
         <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <title>个人中心</title>
-        <link rel="stylesheet" type="text/css" href="themes/metro/easyui.css">
-        <link rel="stylesheet" type="text/css" href="themes/mobile.css">
-        <link rel="stylesheet" type="text/css" href="themes/icon.css">
-        <script type="text/javascript" src="jquery.min.js"></script>
-        <script type="text/javascript" src="jquery.easyui.min.js"></script>
-        <script type="text/javascript" src="jquery.easyui.mobile.js"></script>
+        <link rel="stylesheet" type="text/css" href="geren/easyui.css">
+        <link rel="stylesheet" type="text/css" href="geren/mobile.css">
+        <link rel="stylesheet" type="text/css" href="geren/icon.css">
+        <script type="text/javascript" src="geren/jquery.min.js"></script>
+        <script type="text/javascript" src="geren/jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="geren/jquery.easyui.mobile.js"></script>
     </head>
     <body>
         <div class="easyui-navpanel" style="position:relative">
@@ -83,8 +83,7 @@ class wechatCallbackapiTest
             <div id="dlg1" class="easyui-dialog" style="padding:20px 6px;width:80%;" data-options="inline:true,modal:true,closed:true,title:'Information'">
                 <p>
                 	<?php
-                    echo $res['nickname'];
-                    
+                        echo $res['nickname'];
                     ?>
                     <img src="<?php echo $res['headimgurl']?>" width="80px" heigth="80px"/>	
                 </p>
